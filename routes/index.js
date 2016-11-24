@@ -15,4 +15,15 @@ router.get("/", function(req, res) {
   });
 });
 
+router.get('/stock/search/:ticker/:startdate/:end', function(req, res){
+var options = {
+url:'' + req.params.query,
+//headers: {"apikey": apiKey.apiKey}
+}
+var callback = function(err, response, body){
+res.send(body);
+}
+request(options, callback)
+})
+
 module.exports = router;
