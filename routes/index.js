@@ -15,10 +15,14 @@ router.get("/", function(req, res) {
   });
 });
 
-router.get('/stock/search/:ticker/:startdate/:end', function(req, res){
+router.get('/stock/search/:ticker/:startdate/:enddate', function(req, res){
+
+var apiKey = "KUytvHxeZzXQzvSzJkrC"
+
+var url = "https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker=" + req.params.ticker + "&date.gte="+ req.params.startdate +"&date.lt=" + req.params.enddate + "&qopts.columns=open&api_key=" + apiKey
+
 var options = {
-url:'' + req.params.query,
-//headers: {"apikey": apiKey.apiKey}
+url: url
 }
 var callback = function(err, response, body){
 res.send(body);
