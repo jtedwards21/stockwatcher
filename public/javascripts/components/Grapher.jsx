@@ -1,11 +1,9 @@
 import React from "react";
 import TickerWidgets from "./tickerWidgets";
-import axios from 'axios';
+
+//There's no buttons to change startDate and endDate
 
 export default class Grapher extends React.Component {
-  makeUrl(query){
-	return '' + query
-  }
   constructor() {
     super();
 
@@ -13,13 +11,26 @@ export default class Grapher extends React.Component {
       tickers: [],
       startDate: [],
       endDate: [],
-      data: []
+      currentTicker: ""
     };
+  }
+  addTicker() {
+    this.state.tickers.push(this.state.currentTicker);
+    this.setState(currentTicker: "");
+  }
+  UpdateInputValue(evt){
+    this.setState({currentTicker: evt.target.value});
   }
   render() {
     return (
       <div className="grapher">
-	<TickerWidgets data={this.state.data} />
+	<TickerWidgets tickers={this.state.tickers} startDate={this.state.startDate} endDate={this.state.endDate} />
+        <div className="add-ticker-widget input-group">
+          <span className="input-group-btn">
+	    <button className="btn btn-default"  onClick={this.addTicker.bind(this)} type="button">Go!</button>
+          </span>
+          <input className="form-control" type="text" value={this.state.currentTicker} onChange={this.UpdateInputValue.bind(this)} />
+        </div>
       </div>
     );
   }

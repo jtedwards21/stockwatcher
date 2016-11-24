@@ -21556,10 +21556,6 @@
 
 	var _tickerWidgets2 = _interopRequireDefault(_tickerWidgets);
 
-	var _axios = __webpack_require__(182);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21568,15 +21564,10 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	//There's no buttons to change startDate and endDate
+
 	var Grapher = function (_React$Component) {
 	  _inherits(Grapher, _React$Component);
-
-	  _createClass(Grapher, [{
-	    key: "makeUrl",
-	    value: function makeUrl(query) {
-	      return '' + query;
-	    }
-	  }]);
 
 	  function Grapher() {
 	    _classCallCheck(this, Grapher);
@@ -21587,18 +21578,43 @@
 	      tickers: [],
 	      startDate: [],
 	      endDate: [],
-	      data: []
+	      currentTicker: ""
 	    };
 	    return _this;
 	  }
 
 	  _createClass(Grapher, [{
+	    key: "addTicker",
+	    value: function addTicker() {
+	      this.state.tickers.push(this.state.currentTicker);
+	      this.setState(currentTicker);
+	    }
+	  }, {
+	    key: "UpdateInputValue",
+	    value: function UpdateInputValue(evt) {
+	      this.setState({ currentTicker: evt.target.value });
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "grapher" },
-	        _react2.default.createElement(_tickerWidgets2.default, { data: this.state.data })
+	        _react2.default.createElement(_tickerWidgets2.default, { tickers: this.state.tickers, startDate: this.state.startDate, endDate: this.state.endDate }),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "add-ticker-widget input-group" },
+	          _react2.default.createElement(
+	            "span",
+	            { className: "input-group-btn" },
+	            _react2.default.createElement(
+	              "button",
+	              { className: "btn btn-default", onClick: this.addTicker.bind(this), type: "button" },
+	              "Go!"
+	            )
+	          ),
+	          _react2.default.createElement("input", { className: "form-control", type: "text", value: this.state.currentTicker, onChange: this.UpdateInputValue.bind(this) })
+	        )
 	      );
 	    }
 	  }]);
@@ -21628,6 +21644,10 @@
 
 	var _tickerWidget2 = _interopRequireDefault(_tickerWidget);
 
+	var _axios = __webpack_require__(182);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21638,6 +21658,13 @@
 
 	var TickerWidgets = function (_React$Component) {
 	  _inherits(TickerWidgets, _React$Component);
+
+	  _createClass(TickerWidgets, [{
+	    key: "makeUrl",
+	    value: function makeUrl(ticker, startDate, endDate) {
+	      return '/stock/search/' + ticker + '/' + startDate + '/' + endDate;
+	    }
+	  }]);
 
 	  function TickerWidgets() {
 	    _classCallCheck(this, TickerWidgets);
@@ -21651,9 +21678,26 @@
 	  }
 
 	  _createClass(TickerWidgets, [{
+	    key: "processData",
+	    value: function processData() {
+	      //Make sure that method is bound when called
+	      //Make an object that widget can process to make the call to the API and go through the map function to get passed to individual widgets
+	      var dataArray = [];
+	      for (var i = 0; i < this.props.tickers; i++) {
+	        var url = makeUrl(this.props.tickers[i], this.props.startDate, this.props.endDate);
+	        _axios2.default.get(url).then(function (data) {
+	          return dataArray.push({ data: data });
+	        });
+	      }
+	      //Map the ticker names and ids into dataArray
+	      dataArray.map(function (d) {});
+	      //setState
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
-	      var widgets = this.props.data.map(function (j) {
+	      //This has to change, it doesn't match the map
+	      var widgets = this.state.data.map(function (j) {
 	        return _react2.default.createElement(_tickerWidget2.default, { key: j.id, data: j });
 	      });
 	      return _react2.default.createElement(
