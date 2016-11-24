@@ -21,6 +21,11 @@ export default class Grapher extends React.Component {
   UpdateInputValue(evt){
     this.setState({currentTicker: evt.target.value});
   }
+  componentDidMount() {
+  this.setState({tickers: this.props.tickers})
+  this.setState({startDate: this.props.startDate})
+  this.setState({endDate: this.props.endDate})
+  }
   render() {
     return (
       <div className="grapher">

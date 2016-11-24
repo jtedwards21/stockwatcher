@@ -21533,7 +21533,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function App() {
-	  return _react2.default.createElement(_Grapher2.default, null);
+	  return _react2.default.createElement(_Grapher2.default, { tickers: ["AAPL"], startDate: "20160505", endDate: "20161111" });
 	}
 
 /***/ },
@@ -21593,6 +21593,13 @@
 	    key: "UpdateInputValue",
 	    value: function UpdateInputValue(evt) {
 	      this.setState({ currentTicker: evt.target.value });
+	    }
+	  }, {
+	    key: "componentDidMount",
+	    value: function componentDidMount() {
+	      this.setState({ tickers: this.props.tickers });
+	      this.setState({ startDate: this.props.startDate });
+	      this.setState({ endDate: this.props.endDate });
 	    }
 	  }, {
 	    key: "render",
@@ -21659,13 +21666,6 @@
 	var TickerWidgets = function (_React$Component) {
 	  _inherits(TickerWidgets, _React$Component);
 
-	  _createClass(TickerWidgets, [{
-	    key: "makeUrl",
-	    value: function makeUrl(ticker, startDate, endDate) {
-	      return '/stock/search/' + ticker + '/' + startDate + '/' + endDate;
-	    }
-	  }]);
-
 	  function TickerWidgets() {
 	    _classCallCheck(this, TickerWidgets);
 
@@ -21679,26 +21679,49 @@
 
 	  _createClass(TickerWidgets, [{
 	    key: "processData",
-	    value: function processData() {
-	      //Make sure that method is bound when called
+	    value: function processData(tickers, startDate, endDate) {
 	      //Make an object that widget can process to make the call to the API and go through the map function to get passed to individual widgets
+	      var makeUrl = function makeUrl(ticker, startDate, endDate) {
+	        return '/stock/search/' + ticker + '/' + startDate + '/' + endDate;
+	      };
 	      var dataArray = [];
-	      for (var i = 0; i < this.props.tickers; i++) {
-	        var url = makeUrl(this.props.tickers[i], this.props.startDate, this.props.endDate);
+	      //The below code is not outputting datatable
+	      for (var i = 0; i < tickers.length; i++) {
+	        var url = makeUrl(tickers[i], startDate, endDate);
+	        console.log(url);
 	        _axios2.default.get(url).then(function (data) {
-	          return dataArray.push({ data: data });
+	          console.log(data); /*dataArray.push(data.datatable)*/
 	        });
 	      }
 	      //Map the ticker names and ids into dataArray
-	      dataArray.map(function (d) {});
-	      //setState
+	      console.log(dataArray);
+	      dataArray.map(function (d, j) {
+	        d.name = tickers[j];
+	        d.id = j;
+	        return d;
+	      });
+	      return dataArray;
+	    }
+	  }, {
+	    key: "drawData",
+	    value: function drawData() {
+	      //Draws to svg with data
+	    }
+	  }, {
+	    key: "componentWillMount",
+	    value: function componentWillMount() {
+	      //Props move to state
 	    }
 	  }, {
 	    key: "render",
 	    value: function render() {
-	      //This has to change, it doesn't match the map
-	      var widgets = this.state.data.map(function (j) {
-	        return _react2.default.createElement(_tickerWidget2.default, { key: j.id, data: j });
+	      var d = this.processData(this.props.tickers, this.props.startDate, this.props.endDate);
+	      console.log('processed');
+	      //this.drawData()
+
+
+	      var widgets = d.map(function (j) {
+	        return _react2.default.createElement(_tickerWidget2.default, { key: j.id, name: j.name });
 	      });
 	      return _react2.default.createElement(
 	        "div",
@@ -21754,13 +21777,14 @@
 	  _createClass(TickerWidget, [{
 	    key: "render",
 	    value: function render() {
+	      //This really just renders the little box at the bottom of the page
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "ticker-widget" },
 	        _react2.default.createElement(
 	          "span",
 	          null,
-	          this.props.data.ticker
+	          this.props.name
 	        )
 	      );
 	    }

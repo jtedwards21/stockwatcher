@@ -3,6 +3,6 @@ import Grapher from "./Grapher";
 
 export default function App () {
   return (
-    <Grapher />
+    <Grapher tickers={["AAPL"]} startDate={"20160505"} endDate={"20161111"}/>
   );
 }

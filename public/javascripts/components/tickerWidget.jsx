@@ -9,9 +9,10 @@ export default class TickerWidget extends React.Component {
     };
   }
   render() {
+//This really just renders the little box at the bottom of the page
     return (
       <div className="ticker-widget">
-        <span>{this.props.data.ticker}</span>
+        <span>{this.props.name}</span>
       </div>
     );
   }
