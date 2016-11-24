@@ -10,9 +10,9 @@ export default class Grapher extends React.Component {
     super();
 
     this.state = {
-      tickers: []
-      startDate: []
-      endDate: []
+      tickers: [],
+      startDate: [],
+      endDate: [],
       data: []
     };
   }

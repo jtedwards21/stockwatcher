@@ -1,8 +1,8 @@
 import React from "react";
-import Search from "./search";
+import Grapher from "./Grapher";
 
 export default function App () {
   return (
-    <Search />
+    <Grapher />
   );
 }
