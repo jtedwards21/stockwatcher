@@ -7,7 +7,7 @@ var mapped = initialData.map(function(d){
   return {date: d[0], price: d[1]};
 })
 
-initialData = {name: "AAPL" data: mapped};
+initialData = {name: "AAPL", data: mapped};
 
 
 

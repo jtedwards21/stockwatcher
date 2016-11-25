@@ -16,9 +16,9 @@ export default class TickerWidgets extends React.Component {
     this.D = new Drawer();
 
     this.state = {
-      tickers: [];
-      data: []
-      maxPrice: 0;
+      tickers: [],
+      data: [],
+      maxPrice: 0
     };
   }
   processData(d, ticker){
@@ -78,7 +78,7 @@ export default class TickerWidgets extends React.Component {
 　　componentDidMount(){
     //Draw the initial Map
     //Add the initial map data to the states
-    this.setState({tickers=this.props.tickers})
+    this.setState({tickers:this.props.tickers})
   }
   render() {
     /*this.getAllPrices();
@@ -86,7 +86,7 @@ export default class TickerWidgets extends React.Component {
     console.log('processed');*/
 
     //Let's jsut try to get the widgets to appear first
-    let widgets = this.state.tickers.map(function(t, i)
+    let widgets = this.state.tickers.map(function(t, i){
 	return <TickerWidget key={i} name={t}/>
 })
     return (
