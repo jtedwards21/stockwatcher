@@ -21668,59 +21668,64 @@
 	        ),
 	        _react2.default.createElement(
 	          "div",
-	          { className: "col-md-6 col-md-offset-3" },
+	          { className: "settings-wall col-md-6 col-md-offset-3" },
+	          _react2.default.createElement(
+	            "h1",
+	            { className: "text-center" },
+	            "Settings"
+	          ),
 	          _react2.default.createElement(
 	            "div",
-	            { className: "settings-wall" },
+	            { className: "form-horizontal" },
 	            _react2.default.createElement(
-	              "h1",
-	              { className: "text-center" },
-	              "Settings"
+	              "div",
+	              { className: "col-md-10 col-md-offset-1\u3000change-start-date-widget form-group" },
+	              "\u3000\u3000",
+	              _react2.default.createElement(
+	                "label",
+	                { "for": "startDateControl", className: "col-sm-2 control-label" },
+	                "Start Date"
+	              ),
+	              "\u3000\u3000    \u3000\u3000",
+	              _react2.default.createElement(
+	                "div",
+	                { className: "col-sm-10" },
+	                _react2.default.createElement("input", { className: "form-control", id: "startDateControl", type: "date", value: this.state.startDate, onChange: this.UpdateStartDate.bind(this) })
+	              )
 	            ),
 	            _react2.default.createElement(
 	              "div",
-	              { className: "form-horizontal" },
+	              { className: "col-md-10 col-md-offset-1\u3000change-end-date-widget form-group" },
+	              "\u3000\u3000",
 	              _react2.default.createElement(
-	                "div",
-	                { className: "change-start-date-widget form-group" },
-	                _react2.default.createElement(
-	                  "label",
-	                  { "for": "startDateControl", className: "col-sm-2 control-label" },
-	                  "Start Date"
-	                ),
-	                "\u3000\u3000      ",
-	                _react2.default.createElement(
-	                  "div",
-	                  { className: "col-sm-10" },
-	                  _react2.default.createElement("input", { className: "form-control", id: "startDateControl", type: "date", value: this.state.startDate, onChange: this.UpdateStartDate.bind(this) })
-	                )
+	                "label",
+	                { "for": "endDateControl", className: "col-sm-2 control-label" },
+	                "End Date"
 	              ),
+	              "\u3000\u3000",
 	              _react2.default.createElement(
 	                "div",
-	                { className: "change-end-date-widget form-group" },
-	                _react2.default.createElement(
-	                  "label",
-	                  { "for": "endDateControl", className: "col-sm-2 control-label" },
-	                  "End Date"
-	                ),
-	                _react2.default.createElement(
-	                  "div",
-	                  { className: "col-sm-10" },
-	                  _react2.default.createElement("input", { className: "form-control", id: "endDateControl", type: "date", value: this.state.endDate, onChange: this.UpdateEndDate.bind(this) })
-	                )
+	                { className: "col-sm-10" },
+	                _react2.default.createElement("input", { className: "form-control", id: "endDateControl", type: "date", value: this.state.endDate, onChange: this.UpdateEndDate.bind(this) })
 	              ),
-	              _react2.default.createElement(
-	                "div",
-	                { className: "col-sm-10 add-ticker-widget" },
-	                _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: ["AAPL"], startDate: this.state.startDate, endDate: this.state.endDate }),
-	                _react2.default.createElement(
-	                  "div",
-	                  { className: "add-widget-button widget-button text-center" },
-	                  _react2.default.createElement("span", { className: "text-center glypicon glyphicon-plus", onClick: this.onAddTickerClick, "aria-hidden": "true" })
-	                )
-	              )
+	              "\u3000"
+	            ),
+	            "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-sm-10 col-sm-offset-1 add-ticker-widget" },
+	            "\u3000\u3000",
+	            _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: ["AAPL"], startDate: this.state.startDate, endDate: this.state.endDate }),
+	            "\u3000\u3000",
+	            _react2.default.createElement(
+	              "div",
+	              { className: "add-widget-button widget-button text-center" },
+	              "\u3000",
+	              _react2.default.createElement("span", { className: "text-center glypicon glyphicon-plus", onClick: this.onAddTickerClick, "aria-hidden": "true" })
 	            )
-	          )
+	          ),
+	          "\u3000"
 	        )
 	      );
 	    }
