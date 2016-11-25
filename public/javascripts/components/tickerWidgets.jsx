@@ -3,6 +3,11 @@ import TickerWidget from "./tickerWidget";
 import axios from "axios";
 import Drawer from "./drawer";
 
+
+
+
+
+//There should be no setting of state, everything should be controlled through props and simply redrawn
 export default class TickerWidgets extends React.Component {
   
   constructor() {
@@ -11,19 +16,21 @@ export default class TickerWidgets extends React.Component {
     this.D = new Drawer();
 
     this.state = {
+      tickers: [];
       data: []
+      maxPrice: 0;
     };
   }
   processData(d, ticker){
 	console.log(ticker);
 	d = d.data.datatable.data
-	console.log(d)
-	var displayItem = {name: ticker, data: d}
+	var data = d.map(function(a){
+	  return {date: a[0], price: a[1]}	
+	})
+	console.log(data)
+	var displayItem = {name: ticker, data: data}
 	var oldData = this.state.data;
-	//The problem is here
 	oldData.push(displayItem)
-	console.log(this.setState);
-	//Maybe this is because of the app hasn't displayed yet?
 	//Let's draw the data instead
 	this.drawData(displayItem);
 	
@@ -42,26 +49,53 @@ export default class TickerWidgets extends React.Component {
 	.then(data => this.processData(data, t));
     }
   }
-  checkDrawingVariables(newMaxPrice, newMinDate, newMaxDate){
-    //Really there needs to be something watching the variables in the adjustment boxes
+  getAllPrices(){
+    var makeUrl = function(){
+	var t = "";
+	for(var i = 0; i < this.props.tickers.length; i++){
+	  t = t + this.props.tickers[i];
+	  if(i !== this.props.tickers.length - 1){
+	    t = t + ","
+	  }
+	}
+	return '/stock/search/' + t + '/' + startDate + '/' + endDate
+    }
+
+    axios.get(url)
+    .then(data => this.processPrices(data))
+  }
+  processPrices(data){
+    var d = data.data.datatable.data
+    var prices = d.map(function(a){
+	return a[1]
+})
+    var maxPrice = d3.max(prices);
+    this.setState({maxPrice: maxPrice});
   }
   drawData(){
   
   }
-  componentWillMount(){
-  //Props move to state
+　　componentDidMount(){
+    //Draw the initial Map
+    //Add the initial map data to the states
+    this.setState({tickers=this.props.tickers})
   }
   render() {
+    /*this.getAllPrices();
     this.getData(this.props.tickers, this.props.startDate, this.props.endDate)
-    console.log('processed');
+    console.log('processed');*/
 
-    /*let widgets = d.map(j =>{
-	return <TickerWidget key={j.id} name={j.name}/>
-})*/
+    //Let's jsut try to get the widgets to appear first
+    let widgets = this.state.tickers.map(function(t, i)
+	return <TickerWidget key={i} name={t}/>
+})
     return (
       <div className="widget-collection">
-        {/*widgets*/}
+        {widgets}
       </div>
     );
   }
 }
+
+
+

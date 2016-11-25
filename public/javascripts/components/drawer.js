@@ -13,8 +13,8 @@ export default class Drawer {
     this.maxDate = new Date();
     this.maxPrice = 0;
 
-    this.height = 700 - margins.top - margins.bottom;
-    this.width = 500 - margins.left - margins.right;
+    this.height = 700 - this.margins.top - this.margins.bottom;
+    this.width = 500 - this.margins.left - this.margins.right;
   }
 　　setMinDate(d){
     this.minDate = d;
