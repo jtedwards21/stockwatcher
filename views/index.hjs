@@ -7,7 +7,7 @@
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
   </head>
   <body>
-    <div id="content">{{{markup}}}</div>
+    <div id="content" class="container">{{{markup}}}</div>
 
     <script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/jquery-3.1.1.min.js"></script>

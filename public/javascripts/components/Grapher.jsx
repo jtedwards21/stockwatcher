@@ -44,23 +44,37 @@ export default class Grapher extends React.Component {
   this.setState({endDate: this.props.endDate})
   }
   render() {
+    //This should disappear when it's not being used.
     return (
-      <div className="grapher">
-	<TickerWidgets initialData={initialData}　tickers={["AAPL"]} startDate={this.state.startDate} endDate={this.state.endDate} />
-        <div className="add-ticker-widget input-group">
-	  <div className="form-group">
-	    <label for="startDateControl"></label>
+      <div className="grapher　row">
+	<div className="col-md-4 col-md-offset-4">
+	<h1>Settings</h1>
+	<div className="settings-wall">
+	<div className="settings-form">
+	<div className="ticker-widget-container">
+	  <TickerWidgets initialData={initialData}　tickers={["AAPL"]} startDate={this.state.startDate} endDate={this.state.endDate} />
+	</div>
+        <div className="change-start-date-widget input-group">
+	  <div className="input-group">
+	    <div className="input-group-addon">Start Date: </div>
 	　　  <input className="form-control" id="startDateControl" type="date" value={this.state.startDate} onChange={this.UpdateStartDate.bind(this)} />
 	  </div>
-	  <div className="form-group">
-	    <label for="endDateControl"></label>
+	</div>
+	<div className="change-end-date-widget input-group">
+	  <div className="input-group">
+	    <div className="input-group-addon">End Date: </div>
             <input className="form-control" id="endDateControl" type="date" value={this.state.endDate} onChange={this.UpdateEndDate.bind(this)} />
 	  </div>
-          <span className="input-group-btn">
-	    <button className="btn btn-default"  onClick={this.addTicker.bind(this)} type="button">Go!</button>
-          </span>
-          <input className="form-control" type="text" value={this.state.currentTicker} onChange={this.UpdateCurrentTicker.bind(this)} />
+	</div>
+	<div className="add-ticker-widget input-group">
+            <span className="input-group-btn">
+	      <button className="btn btn-default"  onClick={this.addTicker.bind(this)} type="button">Go!</button>
+            </span>
+            <input className="form-control" type="text" value={this.state.currentTicker} onChange={this.UpdateCurrentTicker.bind(this)} />
+	</div>  
+	</div>
         </div>
+	</div>
       </div>
     );
   }

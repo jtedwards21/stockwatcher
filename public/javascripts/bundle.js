@@ -21623,24 +21623,44 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "grapher" },
-	        _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: ["AAPL"], startDate: this.state.startDate, endDate: this.state.endDate }),
+	        { className: "grapher\u3000row" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "ticker-widget-container" },
+	          _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: ["AAPL"], startDate: this.state.startDate, endDate: this.state.endDate })
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "change-start-date-widget input-group" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "input-group" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "input-group-addon" },
+	              "Start Date: "
+	            ),
+	            "\u3000\u3000  ",
+	            _react2.default.createElement("input", { className: "form-control", id: "startDateControl", type: "date", value: this.state.startDate, onChange: this.UpdateStartDate.bind(this) })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "change-end-date-widget input-group" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "input-group" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "input-group-addon" },
+	              "End Date: "
+	            ),
+	            _react2.default.createElement("input", { className: "form-control", id: "endDateControl", type: "date", value: this.state.endDate, onChange: this.UpdateEndDate.bind(this) })
+	          )
+	        ),
 	        _react2.default.createElement(
 	          "div",
 	          { className: "add-ticker-widget input-group" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "form-group" },
-	            _react2.default.createElement("label", { "for": "startDateControl" }),
-	            "\u3000\u3000  ",
-	            _react2.default.createElement("input", { className: "form-control", id: "startDateControl", type: "date", value: this.state.startDate, onChange: this.UpdateStartDate.bind(this) })
-	          ),
-	          _react2.default.createElement(
-	            "div",
-	            { className: "form-group" },
-	            _react2.default.createElement("label", { "for": "endDateControl" }),
-	            _react2.default.createElement("input", { className: "form-control", id: "endDateControl", type: "date", value: this.state.endDate, onChange: this.UpdateEndDate.bind(this) })
-	          ),
 	          _react2.default.createElement(
 	            "span",
 	            { className: "input-group-btn" },
