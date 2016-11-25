@@ -21556,6 +21556,10 @@
 
 	var _tickerWidgets2 = _interopRequireDefault(_tickerWidgets);
 
+	var _d = __webpack_require__(208);
+
+	var _d2 = _interopRequireDefault(_d);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21584,14 +21588,26 @@
 	      tickers: [],
 	      startDate: new Date(),
 	      endDate: new Date(),
-	      currentTicker: ""
+	      currentTicker: "",
+	      addTickerText: ""
 	    };
 	    return _this;
 	  }
+	  //I think I need to combine the two pieces again.
+	  //That would also remove the communication problem
+
 
 	  _createClass(Grapher, [{
+	    key: "addWindowTicker",
+	    value: function addWindowTicker() {
+	      var oldTickers = this.state.tickers;
+	      oldTickers.push(this.state.addTickerText);
+	      this.setState({ tickers: oldTickers });
+	    }
+	  }, {
 	    key: "addTicker",
 	    value: function addTicker() {
+	      //This method needs to go to setState
 	      this.state.tickers.push(this.state.currentTicker);
 	      this.setState(currentTicker);
 	    }
@@ -21607,6 +21623,11 @@
 	      this.setState({ startDate: evt.target.value });
 	    }
 	  }, {
+	    key: "UpdateAddTickerText",
+	    value: function UpdateAddTickerText(evt) {
+	      this.setState({ AddTickerText: evt.target.value });
+	    }
+	  }, {
 	    key: "UpdateEndDate",
 	    value: function UpdateEndDate(evt) {
 	      this.setState({ endDate: evt.target.value });
@@ -21619,6 +21640,11 @@
 	      this.setState({ endDate: this.props.endDate });
 	    }
 	  }, {
+	    key: "onAddTickerClick",
+	    value: function onAddTickerClick(e) {
+	      _d2.default.select(".add-window").style("display", "block").style("position", "absolute").style("top", "100%");
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
 	      //This should disappear when it's not being used.
@@ -21627,18 +21653,33 @@
 	        { className: "grapher\u3000row" },
 	        _react2.default.createElement(
 	          "div",
+	          { className: "add-window col-md-6 col-md-offset-3" },
+	          _react2.default.createElement(
+	            "h1",
+	            { className: "text-center" },
+	            "Add Ticker"
+	          ),
+	          _react2.default.createElement("input", { className: "", type: "text", value: this.state.addTickerText, onChange: this.UpdateAddTickerText, placeholder: "Enter a ticker..." }),
+	          _react2.default.createElement(
+	            "button",
+	            { className: "btn btn-large btn-default", onClick: this.addWindowTicker },
+	            "Add"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
 	          { className: "col-md-6 col-md-offset-3" },
 	          _react2.default.createElement(
 	            "div",
 	            { className: "settings-wall" },
 	            _react2.default.createElement(
 	              "h1",
-	              null,
+	              { className: "text-center" },
 	              "Settings"
 	            ),
 	            _react2.default.createElement(
 	              "div",
-	              { className: "settings-form\u3000form-horizontal" },
+	              { className: "form-horizontal" },
 	              _react2.default.createElement(
 	                "div",
 	                { className: "change-start-date-widget form-group" },
@@ -21647,7 +21688,7 @@
 	                  { "for": "startDateControl", className: "col-sm-2 control-label" },
 	                  "Start Date"
 	                ),
-	                "\u3000\u3000  ",
+	                "\u3000\u3000      ",
 	                _react2.default.createElement(
 	                  "div",
 	                  { className: "col-sm-10" },
@@ -21670,23 +21711,13 @@
 	              ),
 	              _react2.default.createElement(
 	                "div",
-	                { className: "add-ticker-widget form-group" },
+	                { className: "col-sm-10 add-ticker-widget" },
+	                _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: ["AAPL"], startDate: this.state.startDate, endDate: this.state.endDate }),
 	                _react2.default.createElement(
-	                  "span",
-	                  { className: "input-group-btn" },
-	                  _react2.default.createElement(
-	                    "button",
-	                    { className: "btn btn-default", onClick: this.addTicker.bind(this), type: "button" },
-	                    "Go!"
-	                  )
-	                ),
-	                _react2.default.createElement("input", { className: "form-control", type: "text", value: this.state.currentTicker, onChange: this.UpdateCurrentTicker.bind(this) })
-	              ),
-	              "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000",
-	              _react2.default.createElement(
-	                "div",
-	                { className: "ticker-widget-container" },
-	                _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: ["AAPL"], startDate: this.state.startDate, endDate: this.state.endDate })
+	                  "div",
+	                  { className: "add-widget-button widget-button text-center" },
+	                  _react2.default.createElement("span", { className: "text-center glypicon glyphicon-plus", onClick: this.onAddTickerClick, "aria-hidden": "true" })
+	                )
 	              )
 	            )
 	          )
@@ -21897,7 +21928,7 @@
 	      //This really just renders the little box at the bottom of the page
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "ticker-widget" },
+	        { className: "text-center widget-button" },
 	        _react2.default.createElement(
 	          "span",
 	          null,

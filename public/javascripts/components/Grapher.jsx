@@ -65,38 +65,35 @@ export default class Grapher extends React.Component {
     //This should disappear when it's not being used.
     return (
       <div className="grapher　row">
-	<div className="add-window col-md-6 col-md-offset-3">{/*Should not be displayed*/}
+	<div className="add-window col-md-6 col-md-offset-3">
 	  <h1 className="text-center">Add Ticker</h1>
 	  <input className="" type="text" value={this.state.addTickerText} onChange={this.UpdateAddTickerText} placeholder="Enter a ticker..." />
-	  <button className="btn btn-large btn-default" onClick={this.addWindowTicker}>Add<button>
+	  <button className="btn btn-large btn-default" onClick={this.addWindowTicker}>Add</button>
 	</div>
-	<div className="col-md-6 col-md-offset-3">
-	<div className="settings-wall">
-	<h1 className="text-center">Settings</h1>
-	<div className="form-horizontal">
+	  <div className="col-md-6 col-md-offset-3">
+	    <div className="settings-wall">
+	      <h1 className="text-center">Settings</h1>
+	      <div className="form-horizontal">
 	
-        <div className="change-start-date-widget form-group">
-	    <label for="startDateControl" className="col-sm-2 control-label">Start Date</label>
-	　　  <div className="col-sm-10"><input className="form-control" id="startDateControl" type="date" value={this.state.startDate} onChange={this.UpdateStartDate.bind(this)} /></div>
-	</div>
-	<div className="change-end-date-widget form-group">
-	    <label for="endDateControl" className="col-sm-2 control-label">End Date</label>
-            <div className="col-sm-10"><input className="form-control" id="endDateControl" type="date" value={this.state.endDate} onChange={this.UpdateEndDate.bind(this)} /></div>
-	</div>
-	<div className="col-sm-10 add-ticker-widget">{//This should be a box}
-	    <TickerWidgets initialData={initialData}　tickers={["AAPL"]} startDate={this.state.startDate} endDate={this.state.endDate} />
-            {/*<span className="input-group-btn">
-	      <button className="btn btn-default"  onClick={this.addTicker.bind(this)} type="button">Go!</button>
-            </span>
-            </div>*/}
-	    <div className="add-widget-button">
-		<span className="glypicon glyphicon-plus" onClick={this.onAddTickerClick} aria-hidden="true"></span>
-	    </div>
+              <div className="change-start-date-widget form-group">
+	        <label for="startDateControl" className="col-sm-2 control-label">Start Date</label>
+	　　      <div className="col-sm-10"><input className="form-control" id="startDateControl" type="date" value={this.state.startDate} onChange={this.UpdateStartDate.bind(this)} /></div>
+	      </div>
+	      <div className="change-end-date-widget form-group">
+	        <label for="endDateControl" className="col-sm-2 control-label">End Date</label>
+                <div className="col-sm-10"><input className="form-control" id="endDateControl" type="date" value={this.state.endDate} onChange={this.UpdateEndDate.bind(this)} /></div>
+	     </div>
+	     <div className="col-sm-10 col-sm-offset-1 add-ticker-widget">
+	       <TickerWidgets initialData={initialData}　tickers={["AAPL"]} startDate={this.state.startDate} endDate={this.state.endDate} />
+	       <div className="add-widget-button widget-button text-center">
+		 <span className="text-center glypicon glyphicon-plus" onClick={this.onAddTickerClick} aria-hidden="true"></span>
+	       </div>
 	  
-	</div>
-        </div>
-	</div>
-      </div>
+	     </div>
+           </div>
+	 </div>
+       </div>
+       </div>
     );
   }
 }
