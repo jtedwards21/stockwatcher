@@ -21679,28 +21679,36 @@
 
 	  _createClass(TickerWidgets, [{
 	    key: "processData",
-	    value: function processData(tickers, startDate, endDate) {
+	    value: function processData(d, ticker) {
+	      console.log(ticker);
+	      d = d.data.datatable.data;
+	      console.log(d);
+	      var displayItem = { name: ticker, data: d };
+	      var oldData = this.state.data;
+	      //The problem is here
+	      console.log(oldData);
+	      var newData = oldData.push(displayItem);
+	      console.log(newData);
+	      this.setState(data);
+	    }
+	  }, {
+	    key: "getData",
+	    value: function getData(tickers, startDate, endDate) {
+	      var _this2 = this;
+
 	      //Make an object that widget can process to make the call to the API and go through the map function to get passed to individual widgets
 	      var makeUrl = function makeUrl(ticker, startDate, endDate) {
 	        return '/stock/search/' + ticker + '/' + startDate + '/' + endDate;
 	      };
 	      var dataArray = [];
-	      //The below code is not outputting datatable
+
 	      for (var i = 0; i < tickers.length; i++) {
 	        var url = makeUrl(tickers[i], startDate, endDate);
-	        console.log(url);
+	        var t = tickers[i];
 	        _axios2.default.get(url).then(function (data) {
-	          console.log(data); /*dataArray.push(data.datatable)*/
+	          return _this2.processData(data, t);
 	        });
 	      }
-	      //Map the ticker names and ids into dataArray
-	      console.log(dataArray);
-	      dataArray.map(function (d, j) {
-	        d.name = tickers[j];
-	        d.id = j;
-	        return d;
-	      });
-	      return dataArray;
 	    }
 	  }, {
 	    key: "drawData",
@@ -21715,19 +21723,13 @@
 	  }, {
 	    key: "render",
 	    value: function render() {
-	      var d = this.processData(this.props.tickers, this.props.startDate, this.props.endDate);
+	      this.getData(this.props.tickers, this.props.startDate, this.props.endDate);
 	      console.log('processed');
-	      //this.drawData()
 
-
-	      var widgets = d.map(function (j) {
-	        return _react2.default.createElement(_tickerWidget2.default, { key: j.id, name: j.name });
-	      });
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "widget-collection" },
-	        widgets
-	      );
+	      /*let widgets = d.map(j =>{
+	      return <TickerWidget key={j.id} name={j.name}/>
+	      })*/
+	      return _react2.default.createElement("div", { className: "widget-collection" });
 	    }
 	  }]);
 

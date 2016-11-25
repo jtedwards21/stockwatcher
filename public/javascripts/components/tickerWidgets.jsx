@@ -11,7 +11,18 @@ export default class TickerWidgets extends React.Component {
       data: []
     };
   }
-  processData(tickers, startDate, endDate){
+  processData(d, ticker){
+	console.log(ticker);
+	d = d.data.datatable.data
+	console.log(d)
+	var displayItem = {name: ticker, data: d}
+	var oldData = this.state.data;
+	//The problem is here
+	oldData.push(displayItem)
+	this.setState(data: oldData);
+	
+  }
+  getData(tickers, startDate, endDate){
     //Make an object that widget can process to make the call to the API and go through the map function to get passed to individual widgets
     var makeUrl = function(ticker, startDate, endDate){
 	  return '/stock/search/' + ticker + '/' + startDate + '/' + endDate
@@ -20,19 +31,10 @@ export default class TickerWidgets extends React.Component {
     
     for(var i = 0; i < tickers.length; i++){
 	var url = makeUrl(tickers[i], startDate, endDate)
-        console.log(url)
+	var t = tickers[i]
         axios.get(url)
-	//This is not getting my any data
-        .then(function(data){console.log(data)/*dataArray.push(data.datatable)*/})
+	.then(data => this.processData(data, t));
     }
-    //Map the ticker names and ids into dataArray
-    console.log(dataArray);
-    dataArray.map(function(d, j){
-	d.name = tickers[j];
-        d.id = j
-	return d;
-})
-    return dataArray;
   }
   drawData(){
   //Draws to svg with data
@@ -41,17 +43,15 @@ export default class TickerWidgets extends React.Component {
   //Props move to state
   }
   render() {
-    var d = this.processData(this.props.tickers, this.props.startDate, this.props.endDate)
+    this.getData(this.props.tickers, this.props.startDate, this.props.endDate)
     console.log('processed');
-    //this.drawData()
 
-
-    let widgets = d.map(j =>{
+    /*let widgets = d.map(j =>{
 	return <TickerWidget key={j.id} name={j.name}/>
-})
+})*/
     return (
       <div className="widget-collection">
-        {widgets}
+        {/*widgets*/}
       </div>
     );
   }
