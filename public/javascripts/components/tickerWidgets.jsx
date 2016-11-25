@@ -1,6 +1,7 @@
 import React from "react";
 import TickerWidget from "./tickerWidget";
 import axios from "axios";
+import Drawer from "./drawer";
 
 export default class TickerWidgets extends React.Component {
   
@@ -19,7 +20,10 @@ export default class TickerWidgets extends React.Component {
 	var oldData = this.state.data;
 	//The problem is here
 	oldData.push(displayItem)
-	this.setState(data: oldData);
+	console.log(this.setState);
+	//Maybe this is because of the app hasn't displayed yet?
+	//Let's draw the data instead
+	this.drawData(displayItem);
 	
   }
   getData(tickers, startDate, endDate){

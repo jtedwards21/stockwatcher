@@ -21686,9 +21686,8 @@
 	      var displayItem = { name: ticker, data: d };
 	      var oldData = this.state.data;
 	      //The problem is here
-	      console.log(oldData);
-	      var newData = oldData.push(displayItem);
-	      console.log(newData);
+	      oldData.push(displayItem);
+	      console.log(this.setState);
 	      this.setState(data);
 	    }
 	  }, {
