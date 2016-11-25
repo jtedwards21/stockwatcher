@@ -2,19 +2,25 @@ import d3 from "d3"
 
 export default class Drawer {
 
-  constructor(minDate, maxDate) {
+  constructor() {
     this.margins = {
 	"top": 50,
 	"left": 30,
 	"bottom": 5,
 	"right": 10
     }
-    this.minDate = new Date(minDate)
-    this.maxDate = new Date(maxDate)
+    this.minDate = new Date();
+    this.maxDate = new Date();
     this.maxPrice = 0;
 
     this.height = 700 - margins.top - margins.bottom;
     this.width = 500 - margins.left - margins.right;
+  }
+　　setMinDate(d){
+    this.minDate = d;
+  }
+  setMaxDate(d){
+    this.maxDate = d;
   }
   //Set initial height and width of SVG
   setHW(svg, cont){

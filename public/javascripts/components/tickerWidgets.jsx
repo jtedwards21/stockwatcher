@@ -7,6 +7,8 @@ export default class TickerWidgets extends React.Component {
   
   constructor() {
     super();
+    
+    this.D = new Drawer();
 
     this.state = {
       data: []
@@ -40,8 +42,11 @@ export default class TickerWidgets extends React.Component {
 	.then(data => this.processData(data, t));
     }
   }
+  checkDrawingVariables(newMaxPrice, newMinDate, newMaxDate){
+    //Really there needs to be something watching the variables in the adjustment boxes
+  }
   drawData(){
-  //Draws to svg with data
+  
   }
   componentWillMount(){
   //Props move to state
