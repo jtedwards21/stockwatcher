@@ -8,7 +8,7 @@ a {
 }
 
 
-.settings-wall{
+.settings-wall {
     margin-top: 20px;
     padding: 20px 0px 20px 0px;
     background-color: #f7f7f7;
@@ -17,8 +17,6 @@ a {
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);	
 }
 
-.settings-form{
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
+.add-window {
+    display: none;
 }

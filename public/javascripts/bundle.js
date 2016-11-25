@@ -21621,56 +21621,75 @@
 	  }, {
 	    key: "render",
 	    value: function render() {
+	      //This should disappear when it's not being used.
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "grapher\u3000row" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "ticker-widget-container" },
-	          _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: ["AAPL"], startDate: this.state.startDate, endDate: this.state.endDate })
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: "change-start-date-widget input-group" },
+	          { className: "col-md-6 col-md-offset-3" },
 	          _react2.default.createElement(
 	            "div",
-	            { className: "input-group" },
+	            { className: "settings-wall" },
+	            _react2.default.createElement(
+	              "h1",
+	              null,
+	              "Settings"
+	            ),
 	            _react2.default.createElement(
 	              "div",
-	              { className: "input-group-addon" },
-	              "Start Date: "
-	            ),
-	            "\u3000\u3000  ",
-	            _react2.default.createElement("input", { className: "form-control", id: "startDateControl", type: "date", value: this.state.startDate, onChange: this.UpdateStartDate.bind(this) })
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: "change-end-date-widget input-group" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "input-group" },
-	            _react2.default.createElement(
-	              "div",
-	              { className: "input-group-addon" },
-	              "End Date: "
-	            ),
-	            _react2.default.createElement("input", { className: "form-control", id: "endDateControl", type: "date", value: this.state.endDate, onChange: this.UpdateEndDate.bind(this) })
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: "add-ticker-widget input-group" },
-	          _react2.default.createElement(
-	            "span",
-	            { className: "input-group-btn" },
-	            _react2.default.createElement(
-	              "button",
-	              { className: "btn btn-default", onClick: this.addTicker.bind(this), type: "button" },
-	              "Go!"
+	              { className: "settings-form\u3000form-horizontal" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "change-start-date-widget form-group" },
+	                _react2.default.createElement(
+	                  "label",
+	                  { "for": "startDateControl", className: "col-sm-2 control-label" },
+	                  "Start Date"
+	                ),
+	                "\u3000\u3000  ",
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "col-sm-10" },
+	                  _react2.default.createElement("input", { className: "form-control", id: "startDateControl", type: "date", value: this.state.startDate, onChange: this.UpdateStartDate.bind(this) })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "change-end-date-widget form-group" },
+	                _react2.default.createElement(
+	                  "label",
+	                  { "for": "endDateControl", className: "col-sm-2 control-label" },
+	                  "End Date"
+	                ),
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "col-sm-10" },
+	                  _react2.default.createElement("input", { className: "form-control", id: "endDateControl", type: "date", value: this.state.endDate, onChange: this.UpdateEndDate.bind(this) })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "add-ticker-widget form-group" },
+	                _react2.default.createElement(
+	                  "span",
+	                  { className: "input-group-btn" },
+	                  _react2.default.createElement(
+	                    "button",
+	                    { className: "btn btn-default", onClick: this.addTicker.bind(this), type: "button" },
+	                    "Go!"
+	                  )
+	                ),
+	                _react2.default.createElement("input", { className: "form-control", type: "text", value: this.state.currentTicker, onChange: this.UpdateCurrentTicker.bind(this) })
+	              ),
+	              "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000",
+	              _react2.default.createElement(
+	                "div",
+	                { className: "ticker-widget-container" },
+	                _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: ["AAPL"], startDate: this.state.startDate, endDate: this.state.endDate })
+	              )
 	            )
-	          ),
-	          _react2.default.createElement("input", { className: "form-control", type: "text", value: this.state.currentTicker, onChange: this.UpdateCurrentTicker.bind(this) })
+	          )
 	        )
 	      );
 	    }
