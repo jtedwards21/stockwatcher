@@ -21624,7 +21624,7 @@
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "grapher" },
-	        _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: this.state.tickers, startDate: this.state.startDate, endDate: this.state.endDate }),
+	        _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: ["AAPL"], startDate: this.state.startDate, endDate: this.state.endDate }),
 	        _react2.default.createElement(
 	          "div",
 	          { className: "add-ticker-widget input-group" },

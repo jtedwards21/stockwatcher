@@ -46,7 +46,7 @@ export default class Grapher extends React.Component {
   render() {
     return (
       <div className="grapher">
-	<TickerWidgets initialData={initialData}　tickers={this.state.tickers} startDate={this.state.startDate} endDate={this.state.endDate} />
+	<TickerWidgets initialData={initialData}　tickers={["AAPL"]} startDate={this.state.startDate} endDate={this.state.endDate} />
         <div className="add-ticker-widget input-group">
 	  <div className="form-group">
 	    <label for="startDateControl"></label>
