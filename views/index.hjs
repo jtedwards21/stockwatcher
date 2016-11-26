@@ -11,7 +11,10 @@
     <div class="container">
     <div class="graph-box">
 	<div class="graph-title">Stocks</div>
-	<svg id="graph"></svg>
+	<button class="btn btn-lg btn-default"><span class="glyphicon glyphicon-cog"></span></button>
+	<svg id="graph">
+	  <image id="settings-cog" xlink:href="/img/cog.svg" x="630" y="20" height="50px" width="50px"/>
+	</svg>
 　　　　</div>
     </div>
 　　　　<div id="content" class="container">{{{markup}}}</div>
