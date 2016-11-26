@@ -21643,6 +21643,7 @@
 	    key: "onAddTickerClick",
 	    value: function onAddTickerClick(e) {
 	      _d2.default.select(".add-window").style("display", "block").style("position", "absolute").style("top", "100%");
+	      alert('hi');
 	    }
 	  }, {
 	    key: "render",
@@ -21650,7 +21651,7 @@
 	      //This should disappear when it's not being used.
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "grapher\u3000row" },
+	        { className: "grapher row" },
 	        _react2.default.createElement(
 	          "div",
 	          { className: "add-window col-md-6 col-md-offset-3" },
@@ -21720,9 +21721,9 @@
 	            "\u3000\u3000",
 	            _react2.default.createElement(
 	              "div",
-	              { className: "add-widget-button widget-button text-center" },
+	              { className: "add-widget-button widget-button text-center", onClick: this.onAddTickerClick.bind(this) },
 	              "\u3000",
-	              _react2.default.createElement("span", { className: "text-center glypicon glyphicon-plus", onClick: this.onAddTickerClick, "aria-hidden": "true" })
+	              _react2.default.createElement("span", { className: "text-center glypicon glyphicon-plus", "aria-hidden": "true" })
 	            )
 	          ),
 	          "\u3000"
@@ -21760,7 +21761,7 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _drawer = __webpack_require__(207);
+	var _drawer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./drawer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _drawer2 = _interopRequireDefault(_drawer);
 
@@ -21862,8 +21863,17 @@
 	    key: "componentDidMount",
 	    value: function componentDidMount() {
 	      //Draw the initial Map
+	      D.setHW("#graph", "#box");
+	      D.addMargins("#graph");
+	      D.setMinDate(D.findMinDate(this.props.initialData.data));
+	      D.setMaxDate(D.findMaxDate(this.props.initialData.data));
+	      D.setMaxPrice(D.findMaxPrice(this.props.initialData.data));
+	      var scales = D.getScale();
+	      D.drawAxes(scales.xScale, scales.yScale);
+	      D.drawLine(this.props.initialData.data, this.props.initialData.name);
+
 	      //Add the initial map data to the states
-	      this.setState({ tickers: this.props.tickers });
+	      //this.setState({tickers:this.props.tickers})
 	    }
 	  }, {
 	    key: "render",
@@ -23367,112 +23377,7 @@
 	};
 
 /***/ },
-/* 207 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _d = __webpack_require__(208);
-
-	var _d2 = _interopRequireDefault(_d);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var Drawer = function () {
-	  function Drawer() {
-	    _classCallCheck(this, Drawer);
-
-	    this.margins = {
-	      "top": 50,
-	      "left": 30,
-	      "bottom": 5,
-	      "right": 10
-	    };
-	    this.minDate = new Date();
-	    this.maxDate = new Date();
-	    this.maxPrice = 0;
-
-	    this.height = 700 - this.margins.top - this.margins.bottom;
-	    this.width = 500 - this.margins.left - this.margins.right;
-	  }
-
-	  _createClass(Drawer, [{
-	    key: "setMinDate",
-	    value: function setMinDate(d) {
-	      this.minDate = d;
-	    }
-	  }, {
-	    key: "setMaxDate",
-	    value: function setMaxDate(d) {
-	      this.maxDate = d;
-	    }
-	    //Set initial height and width of SVG
-
-	  }, {
-	    key: "setHW",
-	    value: function setHW(svg, cont) {
-	      _d2.default.select(svg).attr("height", this.height + this.margins.top + this.margins.bottom).attr("width", this.width + this.margins.left + this.margins.right);
-	      _d2.default.select(cont).attr("height", this.height + this.margins.top + this.margins.bottom).attr("width", this.width + this.margins.left + this.margins.right);
-	    }
-	    //Add inner G for margins, 'containerG'
-
-	  }, {
-	    key: "addMargins",
-	    value: function addMargins(svg) {
-	      _d2.default.select(svg).append("g").attr("id", "containerG").attr("transform", "translate(" + this.margins.left + "," + this.margins.top + ")");
-	    }
-	    //Return Scale
-
-	  }, {
-	    key: "getScale",
-	    value: function getScale() {
-	      var xScale = _d2.default.scaleLinear().domain([this.maxDate, this.minDate]).range([0, this.width]);
-	      var yScale = _d2.default.scaleLinear().domain([this.maxPrice, 0]).range([this.height, 0]);
-	      return { xScale: xScale, yScale: yScale };
-	    }
-	  }, {
-	    key: "drawAxes",
-	    value: function drawAxes(xScale, yScale) {
-	      //First Check if there are already axes and if there are delete the old axes
-	      var yAxis = _d2.default.axisLeft().scale(yScale).tickSize(0);
-	      _d2.default.select("#containerG").append("g").attr("id", "yAxisG").attr("transform", "translate(0,0)").call(yAxis);
-
-	      var xAxis = _d2.default.axisBottom().scale(xScale).tickSize(0);
-	      _d2.default.select("#containerG").append("g").attr("id", "xAxisG").attr("transform", "translate(0," + this.height + ")").call(xAxis);
-	    }
-	  }, {
-	    key: "drawLine",
-	    value: function drawLine(data, ticker) {
-	      //First add a g with the id of the ticker
-	      //There is no x and y in my data now
-	      var lineFunc = _d2.default.svg.line().x(function (d) {
-	        return xScale(d.x);
-	      }).y(function (d) {
-	        return yScale(d.y);
-	      }).interpolate('linear');
-
-	      var lineG = _d2.default.select("#containerG").append("g");
-	      lineG.attr("id", ticker + "-g");
-
-	      //Add the data and draw
-	      var containerG = _d2.default.select('#containerG').append('svg:path').attr('d', lineFunc(data)).attr('stroke', 'blue').attr('stroke-width', 2).attr('fill', 'none');
-	    }
-	  }]);
-
-	  return Drawer;
-	}();
-
-	exports.default = Drawer;
-
-/***/ },
+/* 207 */,
 /* 208 */
 /***/ function(module, exports, __webpack_require__) {
 

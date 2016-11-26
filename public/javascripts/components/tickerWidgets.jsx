@@ -1,7 +1,6 @@
 import React from "react";
 import TickerWidget from "./tickerWidget";
 import axios from "axios";
-import Drawer from "./drawer";
 
 
 
@@ -13,7 +12,6 @@ export default class TickerWidgets extends React.Component {
   constructor() {
     super();
     
-    this.D = new Drawer();
 
     this.state = {
       tickers: [],
@@ -77,8 +75,17 @@ export default class TickerWidgets extends React.Component {
   }
 　　componentDidMount(){
     //Draw the initial Map
+　　　　Drawer.setHW("#graph", "#box");
+    Drawer.addMargins("#graph");
+    Drawer.setMinDate(Drawer.findMinDate(this.props.initialData.data));
+    Drawer.setMaxDate(Drawer.findMaxDate(this.props.initialData.data));
+    Drawer.setMaxPrice(Drawer.findMaxPrice(this.props.initialData.data));
+    var scales = Drawer.getScale();
+    Drawer.drawAxes(scales.xScale, scales.yScale);
+    Drawer.drawLine(this.props.initialData.data, this.props.initialData.name)
+    
     //Add the initial map data to the states
-    this.setState({tickers:this.props.tickers})
+    //this.setState({tickers:this.props.tickers})
   }
   render() {
     /*this.getAllPrices();

@@ -60,11 +60,12 @@ export default class Grapher extends React.Component {
   d3.select(".add-window").style("display", "block")
   .style("position", "absolute")
 　　.style("top", "100%")
+  alert('hi')
   }
   render() {
     //This should disappear when it's not being used.
     return (
-      <div className="grapher　row">
+      <div className="grapher row">
 	<div className="add-window col-md-6 col-md-offset-3">
 	  <h1 className="text-center">Add Ticker</h1>
 	  <input className="" type="text" value={this.state.addTickerText} onChange={this.UpdateAddTickerText} placeholder="Enter a ticker..." />
@@ -84,8 +85,8 @@ export default class Grapher extends React.Component {
 　　　　　　　　　　　　</div>
 	    <div className="col-sm-10 col-sm-offset-1 add-ticker-widget">
 	    　　<TickerWidgets initialData={initialData}　tickers={["AAPL"]} startDate={this.state.startDate} endDate={this.state.endDate} />
-	    　　<div className="add-widget-button widget-button text-center">
-		　<span className="text-center glypicon glyphicon-plus" onClick={this.onAddTickerClick} aria-hidden="true"></span>
+	    　　<div className="add-widget-button widget-button text-center" onClick={this.onAddTickerClick.bind(this)}>
+		　<span className="text-center glypicon glyphicon-plus" aria-hidden="true"></span>
 	      </div>
 	    </div>
        　</div>
