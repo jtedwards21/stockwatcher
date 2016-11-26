@@ -21853,7 +21853,7 @@
 	    key: "componentDidMount",
 	    value: function componentDidMount() {
 	      //Draw the initial Map
-	      Drawer.setHW("#graph", "#box");
+	      Drawer.setHW("#graph", ".graph-box");
 	      Drawer.addMargins("#graph");
 	      var minDate = Drawer.findMinDate(this.props.initialData.data);
 	      console.log(minDate);

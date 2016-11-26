@@ -5,12 +5,12 @@ var Drawer = (function() {
   margins = {
     "top": 50,
     "left": 30,
-    "bottom": 5,
+    "bottom": 30,
     "right": 10
   }
 
-  height = 700 - margins.top - margins.bottom;
-  width = 500 - margins.left - margins.right;
+  height = 500 - margins.top - margins.bottom;
+  width = 700 - margins.left - margins.right;
 
   return{
   findMinDate: function(data){

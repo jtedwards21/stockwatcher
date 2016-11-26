@@ -40,3 +40,32 @@ a {
 .grapher {
   display: none;
 }
+
+#graph {
+  background-color: whites;
+}
+
+.graph-title {
+  font-family: Roboto, sans-serif;
+  font-size: 1.9em;
+  font-weight: 700;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  color: #333;
+}
+
+.graph-box {
+  background-color: white;
+  margin: 40px auto;
+  padding: 0px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
+}
+
+.details {
+  font-family: Roboto, sans-serif;
+  font-size: 0.7em;
+  font-weight: 300;
+  text-align: center;
+  padding: 0px;
+}

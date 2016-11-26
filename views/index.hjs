@@ -8,9 +8,12 @@
 　　　　<link rel='stylesheet' href='/stylesheets/datepicker.css' />
   </head>
   <body>
-    <div id="box">
+    <div class="container">
+    <div class="graph-box">
+	<div class="graph-title">Stocks</div>
 	<svg id="graph"></svg>
 　　　　</div>
+    </div>
 　　　　<div id="content" class="container">{{{markup}}}</div>
     <script src="javascripts/jquery-3.1.1.min.js"></script>
 　　　　<script src="javascripts/bootstrap.min.js"></script>

@@ -75,7 +75,7 @@ export default class TickerWidgets extends React.Component {
   }
 　　componentDidMount(){
     //Draw the initial Map
-　　　　Drawer.setHW("#graph", "#box");
+　　　　Drawer.setHW("#graph", ".graph-box");
     Drawer.addMargins("#graph");
     var minDate = Drawer.findMinDate(this.props.initialData.data);
 　　　　console.log(minDate);
