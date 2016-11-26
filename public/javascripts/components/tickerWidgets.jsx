@@ -78,6 +78,7 @@ export default class TickerWidgets extends React.Component {
 　　　　Drawer.setHW("#graph", "#box");
     Drawer.addMargins("#graph");
     var minDate = Drawer.findMinDate(this.props.initialData.data);
+　　　　console.log(minDate);
     var maxDate = Drawer.findMaxDate(this.props.initialData.data);
     var maxPrice = Drawer.findMaxPrice(this.props.initialData.data);
     var scales = Drawer.getScale(minDate, maxDate, maxPrice);

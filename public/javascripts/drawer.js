@@ -14,17 +14,20 @@ var Drawer = (function() {
 
   return{
   findMinDate: function(data){
-    return d3.min(function(d){
-	return new Date(d.date);
+    return d3.min(data, function(d){
+	console.log(d.date);
+	return d.date
     })
+    
 　　},
   findMaxDate: function(data){
-    return d3.max(function(d){
-	return new Date(d.date);
+    return d3.max(data, function(d){
+	console.log(d.date);
+	return d.date;
     })
   },
   findMaxPrice: function(data){
-    return d3.max(function(d){
+    return d3.max(data, function(d){
 	return d.price;
     })
   },
