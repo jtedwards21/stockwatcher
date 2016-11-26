@@ -61,9 +61,24 @@ export default class Grapher extends React.Component {
 　　.style("top", "100%")
   alert('hi')
   }
+　　close(){
+    console.log('dog');
+  }
   render() {
+    //I'll add these onClick methods in React
     //This should disappear when it's not being used.
     return (
+      <div className="background">
+    </div>
+　　　　  <div className="container">
+        <div className="graph-box">
+	  <div className="graph-title" onClick="darken()">Stocks</div>
+	  <svg id="graph">
+	    <image id="settings-cog"　onClick="window.darken()" xlink:href="/img/cog.svg" x="630" y="20" height="50px" width="50px"/>
+	  </svg>
+	  <div className="details"></div>
+　　　　    </div>
+      </div>
       <div className="grapher row">
 	<div className="add-window col-md-6 col-md-offset-3">
 	  <h1 className="text-center">Add Ticker</h1>
@@ -85,9 +100,9 @@ export default class Grapher extends React.Component {
 	    <div className="col-sm-10 col-sm-offset-1 add-ticker-widget">
 	    　　<TickerWidgets initialData={initialData}　tickers={["AAPL"]} startDate={this.state.startDate} endDate={this.state.endDate} />
 	    　　<div className="add-widget-button widget-button text-center" onClick={this.onAddTickerClick.bind(this)}>
-		　<span className="text-center glypicon glyphicon-plus" aria-hidden="true"></span>
 	      </div>
 	    </div>
+	    <button id="closeButton" className="btn btn-default btn-large" onClick={this.close()}>Close</button>
        　</div>
       </div>
     );

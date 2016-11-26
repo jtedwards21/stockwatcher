@@ -21642,6 +21642,11 @@
 	      alert('hi');
 	    }
 	  }, {
+	    key: "close",
+	    value: function close() {
+	      console.log('dog');
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
 	      //This should disappear when it's not being used.
@@ -21715,12 +21720,12 @@
 	            "\u3000\u3000",
 	            _react2.default.createElement(_tickerWidgets2.default, { initialData: initialData, tickers: ["AAPL"], startDate: this.state.startDate, endDate: this.state.endDate }),
 	            "\u3000\u3000",
-	            _react2.default.createElement(
-	              "div",
-	              { className: "add-widget-button widget-button text-center", onClick: this.onAddTickerClick.bind(this) },
-	              "\u3000",
-	              _react2.default.createElement("span", { className: "text-center glypicon glyphicon-plus", "aria-hidden": "true" })
-	            )
+	            _react2.default.createElement("div", { className: "add-widget-button widget-button text-center", onClick: this.onAddTickerClick.bind(this) })
+	          ),
+	          _react2.default.createElement(
+	            "button",
+	            { id: "closeButton", className: "btn btn-default btn-large", onClick: this.close() },
+	            "Close"
 	          ),
 	          "\u3000"
 	        )

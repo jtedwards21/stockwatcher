@@ -21,3 +21,17 @@
     }).on('changeDate', function(ev) {
       endDate.hide();
     }).data('datepicker');
+
+//jQuery click code
+var darken = function(){
+  $('.background').css("opacity", ".5")
+}
+
+$("#settings-cog").click(darken);
+
+$("#closeButton").click(function(){
+  //turn off window display
+  $('')
+  //Turn off background
+  $()
+})

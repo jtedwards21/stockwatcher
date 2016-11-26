@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -60,6 +60,8 @@ a {
   margin: 40px auto;
   padding: 0px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
+  z-index: 95;
+  opacity: 1;
 }
 
 .details {
@@ -68,4 +70,12 @@ a {
   font-weight: 300;
   text-align: center;
   padding: 0px;
+}
+
+.background {
+  background-color: black;
+  opacity: 0;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
 }
