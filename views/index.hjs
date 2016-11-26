@@ -12,9 +12,8 @@
 	<svg id="graph"></svg>
 　　　　</div>
 　　　　<div id="content" class="container">{{{markup}}}</div>
-
-    <script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/jquery-3.1.1.min.js"></script>
+　　　　<script src="javascripts/bootstrap.min.js"></script>
 　　　　<script src="javascripts/d3.min.js"></script>
 　　　　<script src="javascripts/drawer.js"></script>
     <script src="javascripts/bootstrap-datepicker.js"></script>

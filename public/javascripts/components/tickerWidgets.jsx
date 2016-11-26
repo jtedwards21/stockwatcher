@@ -11,7 +11,7 @@ export default class TickerWidgets extends React.Component {
   
   constructor() {
     super();
-    
+
 
     this.state = {
       tickers: [],
@@ -77,12 +77,12 @@ export default class TickerWidgets extends React.Component {
     //Draw the initial Map
 　　　　Drawer.setHW("#graph", "#box");
     Drawer.addMargins("#graph");
-    Drawer.setMinDate(Drawer.findMinDate(this.props.initialData.data));
-    Drawer.setMaxDate(Drawer.findMaxDate(this.props.initialData.data));
-    Drawer.setMaxPrice(Drawer.findMaxPrice(this.props.initialData.data));
-    var scales = Drawer.getScale();
+    var minDate = Drawer.findMinDate(this.props.initialData.data);
+    var maxDate = Drawer.findMaxDate(this.props.initialData.data);
+    var maxPrice = Drawer.findMaxPrice(this.props.initialData.data);
+    var scales = Drawer.getScale(minDate, maxDate, maxPrice);
     Drawer.drawAxes(scales.xScale, scales.yScale);
-    Drawer.drawLine(this.props.initialData.data, this.props.initialData.name)
+    Drawer.drawLine(this.props.initialData.data, this.props.initialData.name, scales)
     
     //Add the initial map data to the states
     //this.setState({tickers:this.props.tickers})
