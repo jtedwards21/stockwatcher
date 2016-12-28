@@ -9,7 +9,8 @@ var TickerWidgets = React.createClass({
       tickers: this.props.tickers,
       newTicker: "",
       startDate: "",
-      endDate: ""
+      endDate: "",
+      message: ""
     };
   },
   processData(d, ticker){
@@ -132,12 +133,13 @@ var TickerWidgets = React.createClass({
 	  return <TickerWidget key={i} lol={t.name} />
       });
     }
-    var controlWidget = <ControlWidget updateStartDate={this.updateStartDate} updateEndDate={this.updateEndDate} startDate={this.state.startDate} endDate={this.state.endDate} key={99} newTicker={this.state.newTicker} updateNewTicker={this.updateNewTicker} />
-    console.log(widgets);
+    var controlWidget = <ControlWidget message={this.state.message} key={99} newTicker={this.state.newTicker} updateNewTicker={this.updateNewTicker} />
+    var dateWidget = <DateWidget updateStartDate={this.updateStartDate} updateEndDate={this.updateEndDate} startDate={this.state.startDate} endDate={this.state.endDate} />
     return (
       <div id="widget-collection">
         {widgets}
 	{controlWidget}
+        {dateWidget}
       </div>
     );
   }
@@ -151,8 +153,8 @@ var TickerWidget = React.createClass({
   },
   render() {
     return (
-      <div className="widget-button">
-        <span>{this.props.lol}</span>
+      <div style={{fontFamily: "Denominator"}} className="widget-button">
+        <div>{this.props.lol}</div>
       </div>
     );
   }
@@ -164,15 +166,38 @@ var ControlWidget = React.createClass({
   },
   render(){
     return (
-	<div id="control-widget" className="text-center widget-button">
-       　　 <span>ControlWidget!</span>
-          <label>Start Date:</label>
-	  <input className="date-input" value={this.props.startDate} onChange={this.props.updateStartDate} />
-	  <label>End Date:</label>
-	　　<input className="date-input" value={this.props.endDate} onChange={this.props.updateEndDate} />
-	  <label>Search:</label>
-	  <input value={this.props.newTicker} onChange={this.props.updateNewTicker}/>
+	<div style={{fontFamily: "Denominator"}} id="control-widget" className=" widget-button">
+       　　 <div>
+	    Add more stocks.
+	  </div>
+	  <div className="input-group">
+	    <input type="text" className="form-control" placeholder="Your Stock Here"  aria-describedby="basic-addon1" value={this.props.newTicker} onChange={this.props.updateNewTicker}/>
+	    <span className="input-group-addon" id="basic-addon1">+</span>
+            <div id="message">{this.props.message}</div>
+	  </div>
       　　</div>
+    )
+  }
+});
+
+
+
+var DateWidget = React.createClass({
+  getInitialState(){
+    return {};
+  },
+  render(){
+    return (
+	<div id="date-widget">
+	  <div>
+            <label>Start Date:</label>
+	    <input className="date-input" value={this.props.startDate} onChange={this.props.updateStartDate} />
+	  </div>
+	  <div>
+	    <label>End Date:</label>
+	　　  <input className="date-input" value={this.props.endDate} onChange={this.props.updateEndDate} />
+	  </div>
+	</div>
     )
   }
 });

@@ -27,4 +27,19 @@ app.route('/stock/search/:ticker/:startdate/:enddate')
   request(options, callback)
 });
 
+app.route('/getTicker/:name')
+    .get(function(req, res){
+	var url = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=" + req.params.name + "&region=1&lang=en";
+	
+	var options = {
+　　　　      url: url
+　　	};
+
+  	var callback = function(err, response, body){
+    	  res.send(body);
+  	};
+
+	request(options, callback)
+     });
+
 };
