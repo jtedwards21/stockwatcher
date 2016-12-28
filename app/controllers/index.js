@@ -8,8 +8,8 @@ var TickerWidgets = React.createClass({
     return {
       tickers: this.props.tickers,
       newTicker: "",
-      startDate: "",
-      endDate: "",
+      startDate: new Date("2016-05-05"),
+      endDate: new Date("2016-11-10"),
       message: "",
       searchResults: []
     };
@@ -105,8 +105,8 @@ var TickerWidgets = React.createClass({
   drawTickers(){
     Drawer.setHW("#graph", ".graph-box");
     Drawer.addMargins("#graph");
-    var minDate = this.getMinDate();
-    var maxDate = this.getMaxDate();
+    var minDate = this.state.startDate;
+    var maxDate = this.state.endDate;
     var maxPrice = this.getMaxPrice();
     var scales = Drawer.getScale(minDate, maxDate, maxPrice);
     Drawer.drawAxes(scales.xScale, scales.yScale);
@@ -116,7 +116,7 @@ var TickerWidgets = React.createClass({
     }
   },
 　　componentDidMount(){
-    //this.drawTickers();
+    this.drawTickers();
   },
   updateNewTicker(e){
     this.setState({newTicker:e.target.value});
@@ -137,9 +137,45 @@ var TickerWidgets = React.createClass({
     .then(data => this.processSearchResults(data));
   },
   addTicker(ticker){
-    var tickers = this.state.tickers.slice();
-    tickers.push(ticker);
-    this.setState({tickers:tickers});
+    //Make a start date
+    var y = this.state.startDate.getFullYear();
+    var m = this.state.startDate.getMonth();
+    var d = this.state.startDate.getDate();
+    
+    m = String(m);
+    if(m.length == 1){m = "0" + m}
+
+    d = String(d);
+    if(d.length == 1){d = "0" + d}
+    var startDate = String(y) + m + d
+
+    //Make an end Date
+    var y = this.state.endDate.getFullYear();
+    var m = this.state.endDate.getMonth();
+    var d = this.state.endDate.getDate();
+
+    m = String(m);
+    if(m.length == 1){m = "0" + m}
+
+    d = String(d);
+    if(d.length == 1){d = "0" + d}
+    var endDate = String(y) + m + d;
+
+
+　　　　var url = '/stock/search/' + ticker.symbol + '/' + startDate + '/' + endDate;
+    console.log(url);
+    axios.get(url)
+　　　　.then(function(data){
+        console.log(data)
+	data = data.data.datatable.data
+        console.log(data);
+	var data = data.map(function(a){
+	  return {date: a[0], price: a[1]}	
+	});
+	ticker.data = data;
+	console.log(ticker);
+        //Add ticker to state
+    });   
   },
   render() {
     var tickers = [];
@@ -206,7 +242,8 @@ var ControlWidget = React.createClass({
     this.setState({searched: false});
   },
   addTicker(){
-    this.props.addTicker(this.props.searchResults[this.state.resultNo]);
+　　　　var ticker = this.props.searchResults[this.state.resultNo]
+    this.props.addTicker(ticker);
     this.back();
   },
   render(){
@@ -355,7 +392,7 @@ var mapped = initialData.map(function(d){
   return {date: new Date(d[0]), price: d[1]};
 })
 
-var tickers = [{name: "AAPL", data: mapped}, {name: "MSRT", data: mapped}];
+var tickers = [{name: "AAPL", data: mapped}];
 
 
 ReactDOM.render(
