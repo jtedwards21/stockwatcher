@@ -143,7 +143,7 @@ var TickerWidgets = React.createClass({
 	  return <TickerWidget key={i} lol={t.name} />
       });
     }
-    var controlWidget = <ControlWidget searchResults={this.state.searchResults} addTicker={this.searchTicker} message={this.state.message} key={99} newTicker={this.state.newTicker} updateNewTicker={this.updateNewTicker} />
+    var controlWidget = <ControlWidget searchResults={this.state.searchResults} searchTicker={this.searchTicker} message={this.state.message} key={99} newTicker={this.state.newTicker} updateNewTicker={this.updateNewTicker} />
     var dateWidget = <DateWidget updateStartDate={this.updateStartDate} updateEndDate={this.updateEndDate} startDate={this.state.startDate} endDate={this.state.endDate} />
     return (
       <div id="widget-collection">
@@ -172,29 +172,57 @@ var TickerWidget = React.createClass({
 
 var ControlWidget = React.createClass({
   getInitialState(){
-    return {};
+    return {
+	searched: false,
+        resultNo: 0
+    };
+  },
+  searchTicker(){
+    //Transition searched
+    this.props.searchTicker();
+    this.setState({searched: true})
   },
   render(){
+
     var searchResults = this.props.searchResults.map(function(s){
 	return <SearchResult name={s.name} symbol={s.symbol} type={s.type} exchange={s.exchDisp}/>
     });
     console.log(searchResults);	
+    
+    var currentResult;
+    if(this.state.searched == true){
+	currentResult = searchResults[this.state.resultNo];
+    }
 
-    return (
+    //If Statement for Return
+    if(this.state.searched == false){
+      return (
 	<div style={{fontFamily: "Denominator"}} id="control-widget" className=" widget-button">
        　　 <div>
-	    Add more stocks.
+	    Search a ticker or company name
 	  </div>
 	  <div className="input-group">
 	    <input type="text" className="form-control" placeholder="Your Stock Here"  aria-describedby="basic-addon1" value={this.props.newTicker} onChange={this.props.updateNewTicker}/>
-	    <span onClick={this.props.addTicker} className="input-group-addon" id="basic-addon1">+</span>
+	    <span onClick={this.searchTicker} className="input-group-addon" id="basic-addon1">+</span>
             <div id="message">{this.props.message}</div>
-	    {searchResults}
 	  </div>
       　　</div>
-    )
+      ) 
+    }
+    else if(this.state.searched == true){
+      return (
+	<div style={{fontFamily: "Denominator"}} id="control-widget" className="widget-button">
+	  <div>
+	    Results
+	  </div>
+	  {currentResult}
+	</div>
+      )
+    }
   }
 });
+
+
 
 var SearchResult = React.createClass({
   getInitialState(){
