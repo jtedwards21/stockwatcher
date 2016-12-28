@@ -136,18 +136,24 @@ var TickerWidgets = React.createClass({
     axios.get(url)
     .then(data => this.processSearchResults(data));
   },
+  addTicker(ticker){
+    var tickers = this.state.tickers.slice();
+    tickers.push(ticker);
+    this.setState({tickers:tickers});
+  },
   render() {
-    var widgets = [];
+    var tickers = [];
+    console.log(this.state.tickers)
     if(this.state.tickers.length > 0){
-	widgets = this.state.tickers.map(function(t, i){
-	  return <TickerWidget key={i} lol={t.name} />
+	tickers = this.state.tickers.map(function(t, i){
+	  return <Ticker symbol={t.symbol} exchDisp={t.exchDisp} type={t.type} key={i} name={t.name} />
       });
     }
-    var controlWidget = <ControlWidget searchResults={this.state.searchResults} searchTicker={this.searchTicker} message={this.state.message} key={99} newTicker={this.state.newTicker} updateNewTicker={this.updateNewTicker} />
+    var controlWidget = <ControlWidget addTicker={this.addTicker} searchResults={this.state.searchResults} searchTicker={this.searchTicker} message={this.state.message} key={99} newTicker={this.state.newTicker} updateNewTicker={this.updateNewTicker} />
     var dateWidget = <DateWidget updateStartDate={this.updateStartDate} updateEndDate={this.updateEndDate} startDate={this.state.startDate} endDate={this.state.endDate} />
     return (
       <div id="widget-collection">
-        {widgets}
+        {tickers}
 	{controlWidget}
         {dateWidget}
       </div>
@@ -155,20 +161,24 @@ var TickerWidgets = React.createClass({
   }
 });
  
-var TickerWidget = React.createClass({
+var Ticker = React.createClass({
   getInitialState() {
     return {
-      ticker: ""
     };
   },
   render() {
     return (
       <div style={{fontFamily: "Denominator"}} className="widget-button">
-        <div>{this.props.lol}</div>
+        <div>{this.props.name}</div>
+        <div>{this.props.exchDisp}</div>
+        <div>{this.props.symbol}</div>
+        <div>{this.props.type}</div>
       </div>
     );
   }
 });
+
+
 
 var ControlWidget = React.createClass({
   getInitialState(){
@@ -181,6 +191,23 @@ var ControlWidget = React.createClass({
     //Transition searched
     this.props.searchTicker();
     this.setState({searched: true})
+  },
+  nextResult(){
+    if(this.state.resultNo < this.props.searchResults.length){
+	this.setState({resultNo: this.state.resultNo + 1})
+    }
+  },
+  previousResult(){
+    if(this.state.resultNo > 0){
+	this.setState({resultNo: this.state.resultNo - 1})
+    }
+  },
+  back(){
+    this.setState({searched: false});
+  },
+  addTicker(){
+    this.props.addTicker(this.props.searchResults[this.state.resultNo]);
+    this.back();
   },
   render(){
 
@@ -212,10 +239,16 @@ var ControlWidget = React.createClass({
     else if(this.state.searched == true){
       return (
 	<div style={{fontFamily: "Denominator"}} id="control-widget" className="widget-button">
-	  <div>
-	    Results
+	 　<div id="top-row">
+	    <div onClick={this.nextResult} id="left-arrow">L</div>
+	    <div>Results</div>
+	    <div onClick={this.previousResult} id="right-arrow">></div>
 	  </div>
 	  {currentResult}
+	  <div id="search-btn-container">
+	    <div onClick={this.addTicker} className="search-btn" id="add-button">Add</div>
+	    <div onClick={this.back} className="search-btn" id="back-button">Back</div>
+	  </div>
 	</div>
       )
     }

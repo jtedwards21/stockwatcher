@@ -53,6 +53,38 @@ body {
   display: inline;
 }
 
+#top-row {
+  display: flex;
+}
+
+#left-arrow {
+  float: left;
+  display: inline;
+  cursor: pointer;
+}
+
+#right-arrow {
+  float: right;
+  display: inline;
+  cursor: pointer;
+}
+
+search-btn-container {
+  display: flex;
+}
+
+.search-btn {
+  padding-left:5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #333;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
+  color: white;
+  display: inline;
+  cursor: pointer;
+}
+
 #basic-addon1 {
   cursor: pointer;
 }
