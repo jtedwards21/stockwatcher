@@ -14,32 +14,6 @@ var TickerWidgets = React.createClass({
       searchResults: []
     };
   },
-  processData(d, ticker){
-	d = d.data.datatable.data
-	var data = d.map(function(a){
-	  return {date: a[0], price: a[1]}	
-	})
-	var displayItem = {name: ticker, data: data}
-	var oldData = this.state.data;
-	oldData.push(displayItem)
-	//Let's draw the data instead
-	this.drawData(displayItem);
-	
-  },
-  getData(tickers, startDate, endDate){
-    //Make an object that widget can process to make the call to the API and go through the map function to get passed to individual widgets
-    var makeUrl = function(ticker, startDate, endDate){
-	  return '/stock/search/' + ticker + '/' + startDate + '/' + endDate
-        }
-    var dataArray = [];
-    
-    for(var i = 0; i < tickers.length; i++){
-	var url = makeUrl(tickers[i], startDate, endDate)
-	var t = tickers[i]
-        axios.get(url)
-	.then(data => this.processData(data, t));
-    }
-  },
   getAllPrices(){
     var makeUrl = function(){
 	var t = "";
@@ -163,21 +137,24 @@ var TickerWidgets = React.createClass({
 
 
 　　　　var url = '/stock/search/' + ticker.symbol + '/' + startDate + '/' + endDate;
-    console.log(url);
+    var that = this;
     axios.get(url)
 　　　　.then(function(data){
         console.log(data)
 	data = data.data.datatable.data
         console.log(data);
 	var data = data.map(function(a){
-	  return {date: a[0], price: a[1]}	
+	  return {date: new Date(a[0]), price: a[1]}	
 	});
 	ticker.data = data;
-	console.log(ticker);
-        //Add ticker to state
+	var tickers = that.state.tickers.slice();
+        tickers.push(ticker);
+	that.setState({tickers:tickers});
+        that.drawTickers();
     });   
   },
   render() {
+    //I think I should move drawing to the render function
     var tickers = [];
     console.log(this.state.tickers)
     if(this.state.tickers.length > 0){
