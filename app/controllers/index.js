@@ -10,7 +10,8 @@ var TickerWidgets = React.createClass({
       newTicker: "",
       startDate: "",
       endDate: "",
-      message: ""
+      message: "",
+      searchResults: []
     };
   },
   processData(d, ticker){
@@ -126,6 +127,15 @@ var TickerWidgets = React.createClass({
   updateEndDate(e){
     this.setState({endDate:e.target.value});
   },
+  processSearchResults(data){
+    var results = data.data.ResultSet;
+    this.setState({searchResults: results.Result});
+  },
+  searchTicker(){
+    var url = "/ticker/" + this.state.newTicker
+    axios.get(url)
+    .then(data => this.processSearchResults(data));
+  },
   render() {
     var widgets = [];
     if(this.state.tickers.length > 0){
@@ -133,7 +143,7 @@ var TickerWidgets = React.createClass({
 	  return <TickerWidget key={i} lol={t.name} />
       });
     }
-    var controlWidget = <ControlWidget message={this.state.message} key={99} newTicker={this.state.newTicker} updateNewTicker={this.updateNewTicker} />
+    var controlWidget = <ControlWidget searchResults={this.state.searchResults} addTicker={this.searchTicker} message={this.state.message} key={99} newTicker={this.state.newTicker} updateNewTicker={this.updateNewTicker} />
     var dateWidget = <DateWidget updateStartDate={this.updateStartDate} updateEndDate={this.updateEndDate} startDate={this.state.startDate} endDate={this.state.endDate} />
     return (
       <div id="widget-collection">
@@ -165,6 +175,11 @@ var ControlWidget = React.createClass({
     return {};
   },
   render(){
+    var searchResults = this.props.searchResults.map(function(s){
+	return <SearchResult name={s.name} symbol={s.symbol} type={s.type} exchange={s.exchDisp}/>
+    });
+    console.log(searchResults);	
+
     return (
 	<div style={{fontFamily: "Denominator"}} id="control-widget" className=" widget-button">
        　　 <div>
@@ -172,11 +187,28 @@ var ControlWidget = React.createClass({
 	  </div>
 	  <div className="input-group">
 	    <input type="text" className="form-control" placeholder="Your Stock Here"  aria-describedby="basic-addon1" value={this.props.newTicker} onChange={this.props.updateNewTicker}/>
-	    <span className="input-group-addon" id="basic-addon1">+</span>
+	    <span onClick={this.props.addTicker} className="input-group-addon" id="basic-addon1">+</span>
             <div id="message">{this.props.message}</div>
+	    {searchResults}
 	  </div>
       　　</div>
     )
+  }
+});
+
+var SearchResult = React.createClass({
+  getInitialState(){
+    return {};
+  },
+  render(){
+    return (
+      <div>
+	{this.props.name}
+	{this.props.symbol}
+	{this.props.type}
+	{this.props.exchange}
+      </div>
+    );
   }
 });
 
