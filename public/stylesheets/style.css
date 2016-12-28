@@ -12,60 +12,38 @@
   src: url("Denominator.ttf") format('truetype');
 }
 
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 30px;
-  background-color: #333;
-}
-
-#github-container{
-}
-
-#github-container p {
-  font-family: Denominator;
-  font-size: 2em;
-  text-align: center;
-  color: white;
-}
-
 body {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-
-.settings-wall {
-    margin-top: 20px;
-    padding: 20px 0px 20px 0px;
-    background-color: #f7f7f7;
-    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);	
+.background {
+  background-color: black;
+  opacity: 0;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
 }
 
-.add-window {
-    display: none;
+
+#widget-collection {
+  display: flex;
 }
 
 .widget-button {
   border: 2px solid black;
   border-radius: 16px;
-  width: 70px;
-  height: 70px;
   line-height: 69px;
   font-size: 1.5em;
+　　display: inline;
+  width: 200px;
+  height: 200px;
 }
 
-.add-ticker-widget {
-  border: 1px solid black;
-  border-radius: 16px;
-  display: inline-flex;
-  padding: 0px;
+.date-input {
+  width: 50px;
+  height: 50px;
 }
-
 
 #graph {
   background-color: whites;
@@ -98,10 +76,21 @@ body {
   padding: 0px;
 }
 
-.background {
-  background-color: black;
-  opacity: 0;
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background-color: #333;
+}
+
+#github-container{
+}
+
+#github-container p {
+  font-family: Denominator;
+  font-size: 2em;
+  text-align: center;
+  color: white;
 }

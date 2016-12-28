@@ -6,7 +6,10 @@
 var TickerWidgets = React.createClass({
   getInitialState() {
     return {
-      tickers: this.props.tickers
+      tickers: this.props.tickers,
+      newTicker: "",
+      startDate: "",
+      endDate: ""
     };
   },
   processData(d, ticker){
@@ -113,6 +116,15 @@ var TickerWidgets = React.createClass({
 　　componentDidMount(){
     //this.drawTickers();
   },
+  updateNewTicker(e){
+    this.setState({newTicker:e.target.value});
+  },
+  updateStartDate(e){
+    this.setState({startDate:e.target.value});
+  },
+  updateEndDate(e){
+    this.setState({endDate:e.target.value});
+  },
   render() {
     var widgets = [];
     if(this.state.tickers.length > 0){
@@ -120,10 +132,10 @@ var TickerWidgets = React.createClass({
 	  return <TickerWidget key={i} lol={t.name} />
       });
     }
-    var controlWidget = <ControlWidget key={99} />
+    var controlWidget = <ControlWidget updateStartDate={this.updateStartDate} updateEndDate={this.updateEndDate} startDate={this.state.startDate} endDate={this.state.endDate} key={99} newTicker={this.state.newTicker} updateNewTicker={this.updateNewTicker} />
     console.log(widgets);
     return (
-      <div className="widget-collection">
+      <div id="widget-collection">
         {widgets}
 	{controlWidget}
       </div>
@@ -139,7 +151,7 @@ var TickerWidget = React.createClass({
   },
   render() {
     return (
-      <div className="text-center widget-button">
+      <div className="widget-button">
         <span>{this.props.lol}</span>
       </div>
     );
@@ -152,12 +164,14 @@ var ControlWidget = React.createClass({
   },
   render(){
     return (
-	<div className="text-center widget-button">
+	<div id="control-widget" className="text-center widget-button">
        　　 <span>ControlWidget!</span>
           <label>Start Date:</label>
-	  <input id="startDateControl" type="date" value={this.state.startDate} onChange={this.UpdateStartDate} />
+	  <input className="date-input" value={this.props.startDate} onChange={this.props.updateStartDate} />
 	  <label>End Date:</label>
-	　　<input id="endDateControl" type="date" value={this.state.endDate} onChange={this.UpdateEndDate} />
+	　　<input className="date-input" value={this.props.endDate} onChange={this.props.updateEndDate} />
+	  <label>Search:</label>
+	  <input value={this.props.newTicker} onChange={this.props.updateNewTicker}/>
       　　</div>
     )
   }
@@ -178,45 +192,13 @@ var Grapher = React.createClass({
       tickers: this.props.tickers,
       startDate: this.props.startDate,
       endDate: this.props.endDate,
-      currentTicker: "",
-      addTickerText: ""
     };
   },
-//I think I need to combine the two pieces again.
-//That would also remove the communication problem
-  addWindowTicker(){
-    var oldTickers = this.state.tickers
-    oldTickers.push(this.state.addTickerText);
-    this.setState({tickers: oldTickers});
-  },
-  addTicker() {
-    //This method needs to go to setState
-    this.state.tickers.push(this.state.currentTicker);
-    this.setState({currentTicker: ""});
-  },
-  UpdateCurrentTicker(evt){
-    this.setState({currentTicker: evt.target.value});
-  },
-  UpdateStartDate(evt){
-    //This needs to feed into props, where it will then just send re-render the object with a call to the api
-    this.setState({startDate: evt.target.value});
-  },
-  UpdateAddTickerText(evt){
-　　　　this.setState({AddTickerText: evt.target.value});
-  },
-  UpdateEndDate(evt){
-    this.setState({endDate: evt.target.value});
-  },
-  componentDidMount() {
-
-  },
-  onAddTickerClick(e){
-  d3.select(".add-window").style("display", "block")
-  .style("position", "absolute")
-　　.style("top", "100%")
-  alert('hi')
+  onAddTickerClick(){
+    console.log('hi');
   },
 　　close(){
+    console.log('close');
   },
   render() {
     var widgetsContainer = <TickerWidgets　tickers={this.state.tickers} startDate={this.state.startDate} endDate={this.state.endDate} />
@@ -229,7 +211,6 @@ var Grapher = React.createClass({
 	  </svg>
 	  <div className="details"></div>
 　　　　    </div>
-      
       <div className="grapher row">
 	{widgetsContainer}
       </div>
