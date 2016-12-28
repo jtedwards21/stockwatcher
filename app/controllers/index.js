@@ -154,6 +154,10 @@ var ControlWidget = React.createClass({
     return (
 	<div className="text-center widget-button">
        　　 <span>ControlWidget!</span>
+          <label>Start Date:</label>
+	  <input id="startDateControl" type="date" value={this.state.startDate} onChange={this.UpdateStartDate} />
+	  <label>End Date:</label>
+	　　<input id="endDateControl" type="date" value={this.state.endDate} onChange={this.UpdateEndDate} />
       　　</div>
     )
   }
@@ -227,30 +231,7 @@ var Grapher = React.createClass({
 　　　　    </div>
       
       <div className="grapher row">
-	<div className="add-window col-md-6 col-md-offset-3">
-	  <h1 className="text-center">Add Ticker</h1>
-	  <input className="" type="text" value={this.state.addTickerText} onChange={this.UpdateAddTickerText} placeholder="Enter a ticker..." />
-	  <button className="btn btn-large btn-default" onClick={this.addWindowTicker}>Add</button>
-	</div>
-	<div className="settings-wall col-md-6 col-md-offset-3">
-	    <h1 className="text-center">Settings</h1>
-	    <div className="form-horizontal">	
-              <div className="col-md-10 col-md-offset-1　change-start-date-widget form-group">
-	      　　<label for="startDateControl" className="col-sm-2 control-label">Start Date</label>
-	　　    　　<div className="col-sm-10"><input className="form-control" id="startDateControl" type="date" value={this.state.startDate} onChange={this.UpdateStartDate} /></div>
-	      </div>
-	      <div className="col-md-10 col-md-offset-1　change-end-date-widget form-group">
-	      　　<label for="endDateControl" className="col-sm-2 control-label">End Date</label>
-              　　<div className="col-sm-10"><input className="form-control" id="endDateControl" type="date" value={this.state.endDate} onChange={this.UpdateEndDate} /></div>
-	     　</div>
-　　　　　　　　　　　　</div>
-	    <div className="col-sm-10 col-sm-offset-1 add-ticker-widget">
-	    　　{widgetsContainer}
-	    　　<div className="add-widget-button widget-button text-center" onClick={this.onAddTickerClick}>
-	      </div>
-	    </div>
-	    <button id="closeButton" className="btn btn-default btn-large" onClick={this.close()}>Close</button>
-       　</div>
+	{widgetsContainer}
       </div>
     </div>
     );
