@@ -119,7 +119,7 @@ var TickerWidgets = React.createClass({
 	  return {date: new Date(a[0]), price: a[1]}	
 	});
 	ticker.data = data;
-        tickers[i] = ticker;
+        tickers[i -1] = ticker;
 	that.setState({tickers:tickers});
         that.drawTickers();
     });
@@ -184,7 +184,6 @@ var TickerWidgets = React.createClass({
   render() {
     //I think I should move drawing to the render function
     var tickers = [];
-    console.log(this.state.tickers)
     if(this.state.tickers.length > 0){
 	tickers = this.state.tickers.map(function(t, i){
 	  return <Ticker symbol={t.symbol} exchDisp={t.exchDisp} type={t.type} key={i} name={t.name} />
