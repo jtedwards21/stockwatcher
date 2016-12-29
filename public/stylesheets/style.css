@@ -52,11 +52,17 @@ body {
 
 #date-widget {
   display: flex;
+  float: right;
 }
 
 #date-widget label {
   color: #EEE;
   font-family: Denominator;
+}
+
+#date-widget input {
+  font-family: Denominator;
+  margin-right: 10px;
 }
 
 #date-widget div {
@@ -130,14 +136,6 @@ search-btn-container {
 }
 
 
-
-.details {
-  font-family: Roboto, sans-serif;
-  font-size: 0.7em;
-  font-weight: 300;
-  text-align: center;
-  padding: 0px;
-}
 
 
 .footer {

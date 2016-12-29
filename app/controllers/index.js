@@ -97,11 +97,11 @@ var TickerWidgets = React.createClass({
   updateNewTicker(e){
     this.setState({newTicker:e.target.value});
   },
-  updateStartDate(e){
-    this.setState({startDate:e.target.value});
+  updateStartDate(t){
+    this.setState({startDate:new Date(t)});
   },
-  updateEndDate(e){
-    this.setState({endDate:e.target.value});
+  updateEndDate(t){
+    this.setState({endDate:new Date(t)});
   },
   processSearchResults(data){
     var results = data.data.ResultSet;
@@ -170,9 +170,10 @@ var TickerWidgets = React.createClass({
 　　　　  <div>
         <div id="graph-box-container col-md-12">
 	    <div className="graph-title">Stocks</div>
-            {dateWidget}
-	    <svg id="graph"></svg>
-	    <div className="details"></div>
+            <div className="graph-box">
+	      {dateWidget}
+	      <svg id="graph"></svg>
+	    </div>
 	</div>
         <div className="grapher row">
 	  <div id="widget-collection">
@@ -304,19 +305,32 @@ var DateWidget = React.createClass({
   getInitialState(){
     return {};
   },
+  closeStartDate(t){
+    this.props.updateStartDate(t);
+  },
+  closeEndDate(t){
+    this.props.updateEndDate(t);
+  },
   componentDidMount(){
-    $(".datepicker").datepicker();
+    $("#startDate").datepicker();
+    $("#endDate").datepicker();
+    $("#startDate").datepicker("option", "onClose", this.closeStartDate);
+    $("#endDate").datepicker("option", "onClose", this.closeEndDate);
+    $("#startDate").datepicker("setDate", this.props.startDate);
+    $("#endDate").datepicker("setDate", this.props.endDate);
+
   },
   render(){
+    console.log(this.props.startDate);
     return (
 	<div id="date-widget">
 	  <div>
             <label>Start Date:</label>
-	    <input type="text" className="datepicker" value={this.props.startDate} onChange={this.props.updateStartDate} />
+	    <input id="startDate" type="text" className="datepicker" />
 	  </div>
 	  <div>
 	    <label>End Date:</label>
-	　　  <input type="text" className="datepicker" value={this.props.endDate} onChange={this.props.updateEndDate} />
+	　　  <input id="endDate" type="text" className="datepicker" />
 	  </div>
 	</div>
     )
