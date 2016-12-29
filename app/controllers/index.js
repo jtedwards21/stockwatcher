@@ -99,9 +99,31 @@ var TickerWidgets = React.createClass({
   },
   updateStartDate(t){
     this.setState({startDate:new Date(t)});
+    this.updateTickerData();
   },
   updateEndDate(t){
     this.setState({endDate:new Date(t)});
+    this.updateTickerData();
+  },
+  updateTickerData(){
+    var tickers = this.state.tickers.slice();
+    var that = this;
+    for(var i = 0; i < tickers.length; i++){
+      var ticker = tickers[i];
+      var url = this.makeDataUrl(ticker.symbol);
+      axios.get(url)
+　　　　  .then(function(data){
+	var tickers = that.state.tickers.slice();
+	var data = data.data.datatable.data
+	data = data.map(function(a){
+	  return {date: new Date(a[0]), price: a[1]}	
+	});
+	ticker.data = data;
+        tickers[i] = ticker;
+	that.setState({tickers:tickers});
+        that.drawTickers();
+    });
+    }
   },
   processSearchResults(data){
     var results = data.data.ResultSet;
@@ -112,7 +134,7 @@ var TickerWidgets = React.createClass({
     axios.get(url)
     .then(data => this.processSearchResults(data));
   },
-  addTicker(ticker){
+  makeDataUrl(symbol){
     //Make a start date
     var y = this.state.startDate.getFullYear();
     var m = this.state.startDate.getMonth();
@@ -138,7 +160,11 @@ var TickerWidgets = React.createClass({
     var endDate = String(y) + m + d;
 
 
-　　　　var url = '/stock/search/' + ticker.symbol + '/' + startDate + '/' + endDate;
+　　　　var url = '/stock/search/' + symbol + '/' + startDate + '/' + endDate;
+    return url;
+  },
+  addTicker(ticker){
+    var url = this.makeDataUrl(ticker.symbol);
     var that = this;
     axios.get(url)
 　　　　.then(function(data){
@@ -364,7 +390,7 @@ var mapped = initialData.map(function(d){
   return {date: new Date(d[0]), price: d[1]};
 })
 
-var tickers = [{name: "AAPL", data: mapped}];
+var tickers = [{name: "Apple Inc.", exch: "NMS", exchDisp: "NASDAQ", symbol: "AAPL", type: "S", typeDisp: "Equity", data: mapped}];
 
 
 ReactDOM.render(
