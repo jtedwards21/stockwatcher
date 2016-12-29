@@ -16,22 +16,27 @@ body {
   padding: 0px;
 }
 
-.background {
-  background-color: black;
-  opacity: 0;
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
+#background {
+  background-color: #00797F;
+}
+
+#content {
+  margin-top: 80px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
+  background-color: #333;
+  padding: 20px;
+  border-radius: 5px;
+  width: 1000px;
 }
 
 
 #widget-collection {
   display: flex;
+  background-color: #00686E;
 }
 
 .widget-button {
 　　display: inline;
-  width: 200px;
   height: 200px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
 }
@@ -90,7 +95,14 @@ search-btn-container {
 }
 
 #graph {
-  background-color: whites;
+  background-color: #242424;
+　　margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
+
+#graph-box-container {
+  border-radius: 5px;
 }
 
 .graph-title {
@@ -98,19 +110,13 @@ search-btn-container {
   font-size: 1.9em;
   font-weight: 700;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 0px;
-  color: #333;
+  margin-bottom: 10px;
+  color: #EEE;
+  font-family: Denominator;
+  
 }
 
-.graph-box {
-  background-color: white;
-  margin: 40px auto;
-  padding: 0px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
-  z-index: 95;
-  opacity: 1;
-}
+
 
 .details {
   font-family: Roboto, sans-serif;

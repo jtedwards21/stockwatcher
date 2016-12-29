@@ -9,7 +9,7 @@ var Drawer = (function() {
   }
 
   var height = 500 - margins.top - margins.bottom;
-  var width = 700 - margins.left - margins.right;
+  var width = 900 - margins.left - margins.right;
 
   return{
   findMinDate: function(data){
@@ -33,9 +33,7 @@ var Drawer = (function() {
     d3.select(svg)
       .attr("height", height + margins.top + margins.bottom)
       .attr("width", width + margins.left + margins.right)
-    d3.select(cont)
-      .attr("height", height + margins.top + margins.bottom)
-      .attr("width", width + margins.left + margins.right)
+    return [height + margins.top + margins.bottom,width + margins.left + margins.right]
   },
   //Add inner G for margins, 'containerG'
   addMargins: function(svg){

@@ -77,7 +77,7 @@ var TickerWidgets = React.createClass({
     return maxValue;
   },
   drawTickers(){
-    Drawer.setHW("#graph", ".graph-box");
+    var dim = Drawer.setHW("#graph", "#graph-box");
     Drawer.addMargins("#graph");
     var minDate = this.state.startDate;
     var maxDate = this.state.endDate;
@@ -90,6 +90,8 @@ var TickerWidgets = React.createClass({
     }
   },
 　　componentDidMount(){
+    $("#graph-box").css("width", "900");
+    $("#graph-box").css("height", "500");
     this.drawTickers();
   },
   updateNewTicker(e){
@@ -181,7 +183,7 @@ var Ticker = React.createClass({
   },
   render() {
     return (
-      <div style={{fontFamily: "Denominator"}} className="widget-button">
+      <div style={{fontFamily: "Denominator"}} className="widget-button col-md-2">
         <div>{this.props.name}</div>
         <div>{this.props.exchDisp}</div>
         <div>{this.props.symbol}</div>
@@ -252,7 +254,7 @@ var ControlWidget = React.createClass({
     }
     else if(this.state.searched == true){
       return (
-	<div style={{fontFamily: "Denominator"}} id="control-widget" className="widget-button">
+	<div style={{fontFamily: "Denominator"}} id="control-widget" className="col-md-2 widget-button">
 	 　<div id="top-row">
 	    <div onClick={this.nextResult} id="left-arrow">L</div>
 	    <div>Results</div>
@@ -337,16 +339,15 @@ var Grapher = React.createClass({
     console.log(widgetsContainer);
     return (
 　　　　  <div>
-        <div className="graph-box">
-	  <div className="graph-title">Stocks</div>
-	  <svg id="graph">
-	  </svg>
-	  <div className="details"></div>
-　　　　    </div>
-      <div className="grapher row">
-	{widgetsContainer}
+        <div id="graph-box-container col-md-12">
+	    <div className="graph-title">Stocks</div>
+	    <svg id="graph"></svg>
+	    <div className="details"></div>
+	</div>
+        <div className="grapher row">
+	  {widgetsContainer}
+        </div>
       </div>
-    </div>
     );
   }
 })
