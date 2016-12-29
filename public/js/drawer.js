@@ -56,6 +56,10 @@ var Drawer = (function() {
     var xAxis = d3.axisBottom().scale(xScale).tickSize(0)
     d3.select("#containerG").append("g").attr("id", "xAxisG").attr("transform", "translate(0," + height + ")").call(xAxis);
   },
+　　removeLines(){
+    var svg = d3.select("svg");
+    svg.selectAll("*").remove();
+  },
   drawLine: function(data, ticker, s, id){
     //First add a g with the id of the ticker
     //There is no x and y in my data now

@@ -106,6 +106,7 @@ var TickerWidgets = React.createClass({
     this.updateTickerData();
   },
   updateTickerData(){
+　　　　Drawer.removeLines();
     var tickers = this.state.tickers.slice();
     var that = this;
     for(var i = 0; i < tickers.length; i++){
