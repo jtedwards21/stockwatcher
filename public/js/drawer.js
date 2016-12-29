@@ -7,7 +7,7 @@ var Drawer = (function() {
     "bottom": 30,
     "right": 10
   }
-
+  var colors=['red', 'blue', 'orange','brown','purple'];
   var height = 500 - margins.top - margins.bottom;
   var width = 900 - margins.left - margins.right;
 
@@ -56,9 +56,10 @@ var Drawer = (function() {
     var xAxis = d3.axisBottom().scale(xScale).tickSize(0)
     d3.select("#containerG").append("g").attr("id", "xAxisG").attr("transform", "translate(0," + height + ")").call(xAxis);
   },
-  drawLine: function(data, ticker, s){
+  drawLine: function(data, ticker, s, id){
     //First add a g with the id of the ticker
     //There is no x and y in my data now
+    console.log(id);
     var line = d3.line()
     line.x(function(d) {return s.xScale(d.date);})
     line.y(function(d){return s.yScale(d.price);})
@@ -71,7 +72,7 @@ var Drawer = (function() {
 　　　　var containerG = d3.select('#containerG')
 .append('svg:path')
 .attr('d', line(data))
-.attr('stroke', 'blue')
+.attr('stroke', colors[id])
 .attr('stroke-width', 2)
 .attr('fill', 'none');
   }

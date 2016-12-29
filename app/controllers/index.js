@@ -86,7 +86,7 @@ var TickerWidgets = React.createClass({
     Drawer.drawAxes(scales.xScale, scales.yScale);
     var tickers = this.state.tickers;
     for(var i = 0; i < tickers.length; i++){
-      Drawer.drawLine(tickers[i].data, tickers[i].name, scales);
+      Drawer.drawLine(tickers[i].data, tickers[i].name, scales, i);
     }
   },
 　　componentDidMount(){
