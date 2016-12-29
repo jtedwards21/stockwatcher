@@ -295,16 +295,19 @@ var DateWidget = React.createClass({
   getInitialState(){
     return {};
   },
+  componentDidMount(){
+    $(".datepicker").datepicker();
+  },
   render(){
     return (
 	<div id="date-widget">
 	  <div>
             <label>Start Date:</label>
-	    <input className="date-input" value={this.props.startDate} onChange={this.props.updateStartDate} />
+	    <input type="text" className="datepicker" value={this.props.startDate} onChange={this.props.updateStartDate} />
 	  </div>
 	  <div>
 	    <label>End Date:</label>
-	　　  <input className="date-input" value={this.props.endDate} onChange={this.props.updateEndDate} />
+	　　  <input type="text" className="datepicker" value={this.props.endDate} onChange={this.props.updateEndDate} />
 	  </div>
 	</div>
     )
