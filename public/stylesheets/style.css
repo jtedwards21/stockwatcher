@@ -50,6 +50,18 @@ body {
   padding-right: 10px;
 }
 
+#date-widget {
+  display: flex;
+}
+
+#date-widget label {
+  color: #EEE;
+  font-family: Denominator;
+}
+
+#date-widget div {
+  display: inline;
+}
 
 #control-widget div {
   display: flex;

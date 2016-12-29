@@ -167,10 +167,19 @@ var TickerWidgets = React.createClass({
     var controlWidget = <ControlWidget addTicker={this.addTicker} searchResults={this.state.searchResults} searchTicker={this.searchTicker} message={this.state.message} key={99} newTicker={this.state.newTicker} updateNewTicker={this.updateNewTicker} />
     var dateWidget = <DateWidget updateStartDate={this.updateStartDate} updateEndDate={this.updateEndDate} startDate={this.state.startDate} endDate={this.state.endDate} />
     return (
-      <div id="widget-collection">
-        {tickers}
-	{controlWidget}
-        {dateWidget}
+　　　　  <div>
+        <div id="graph-box-container col-md-12">
+	    <div className="graph-title">Stocks</div>
+            {dateWidget}
+	    <svg id="graph"></svg>
+	    <div className="details"></div>
+	</div>
+        <div className="grapher row">
+	  <div id="widget-collection">
+            {tickers}
+	    {controlWidget}
+          </div>
+        </div>
       </div>
     );
   }
@@ -323,38 +332,6 @@ var DateWidget = React.createClass({
 
 
 
-var Grapher = React.createClass({
-  getInitialState() {
-    return {
-      tickers: this.props.tickers,
-      startDate: this.props.startDate,
-      endDate: this.props.endDate,
-    };
-  },
-  onAddTickerClick(){
-    console.log('hi');
-  },
-　　close(){
-    console.log('close');
-  },
-  render() {
-    var widgetsContainer = <TickerWidgets　tickers={this.state.tickers} startDate={this.state.startDate} endDate={this.state.endDate} />
-    console.log(widgetsContainer);
-    return (
-　　　　  <div>
-        <div id="graph-box-container col-md-12">
-	    <div className="graph-title">Stocks</div>
-	    <svg id="graph"></svg>
-	    <div className="details"></div>
-	</div>
-        <div className="grapher row">
-	  {widgetsContainer}
-        </div>
-      </div>
-    );
-  }
-})
-
 
 
 
@@ -377,7 +354,7 @@ var tickers = [{name: "AAPL", data: mapped}];
 
 
 ReactDOM.render(
-  <Grapher tickers={tickers} startDate={'2016-05-05'} endDate={"2016-11-10"} />,
+  <TickerWidgets tickers={tickers} startDate={'2016-05-05'} endDate={"2016-11-10"} />,
   document.getElementById('content')
 )
 
